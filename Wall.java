@@ -19,6 +19,9 @@ public class Wall {
     public String inspect(){
       return inspect;
     }
+    public String getName(){
+        return name;
+    }
     public void setInspect(String i){
       inspect=i;
     }
