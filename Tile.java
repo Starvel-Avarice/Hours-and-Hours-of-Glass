@@ -1,16 +1,22 @@
 public class Tile {
     private static Item items;
-    private static String[] wallInfo;
+    private static Wall[] walls;
     private static int ladder;
 
-    public Tile(Item[] i, String[] wI, int l){
+    public Tile(Item[] i, Wall[] wI, int l){
         items = i;
-        wallInfo =wI;
+        walls =wI;
         ladder =l;
     }
-
+    public Tile(){
+        walls = new wall[4];
+    }
+    public static String look(int facing){
+        return walls[facing].getName();
+    }
+    
     public static String inspectWall(int direction){
-        return wallInfo[direction];
+        return wallInfo[direction].inspect();
     }
 
 }
