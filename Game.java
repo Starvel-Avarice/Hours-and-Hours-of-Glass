@@ -1,3 +1,5 @@
+import java.awt.event.*;
+
 public class Game {
     public static void main(String[] args) {
         Wall testWall = new Wall();
@@ -14,5 +16,13 @@ public class Game {
         for(String s:looked){
         System.out.println(s);}
 
+    }
+    public class EventHandler implements ActionListener {
+        public EventHandler(){
+
+        }
+        public void actionPerformed(ActionEvent event){
+        
+        }
     }
 }
