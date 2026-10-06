@@ -10,6 +10,12 @@ public class Tile {
         walls = wI;
         ladder =l;
     }
+
+    public Tile(Boolean[] w){
+    items = null;
+    ladder =0;
+    }       
+
     public String[] look(){
 
        ArrayList<String> interests = new ArrayList<String>();
