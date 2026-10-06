@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Tile {
     private Item[] items;
+    private int[] walls;
     private int ladder;
 
     public Tile(Item[] i, int[] wI, int l){

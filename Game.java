@@ -1,7 +1,5 @@
 public class Game {
     public static void main(String[] args) {
-        Wall testWall = new Wall();
-        Wall testDoor = new Wall("A locked door with a green gem embeded in it", true);
         int[] Walls = new int[] {0, 0, 2, 0};
 
         Item Torch = new Item("torch", "Lights the way", "torchUse");
