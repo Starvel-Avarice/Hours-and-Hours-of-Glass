@@ -1,19 +1,19 @@
 import java.util.ArrayList;
 
 public class Tile {
-    private  Item[] items;
-    private  Wall[] walls;
-    private  int ladder;
+    private Item[] items;
+    private int[] walls;
+    private int ladder;
 
-    public Tile(Item[] i, Wall[] wI, int l){
+    public Tile(Item[] i, int[] wI, int l){
         items = i;
         walls = wI;
-        ladder =l;
+        ladder = l;
     }
 
     public Tile(Boolean[] w){
     items = null;
-    ladder =0;
+    ladder = 0;
     }       
 
     public String[] look(){
@@ -26,11 +26,11 @@ public class Tile {
             interests.add(items[i].getName());
         }
         for(int j=0;j<4;j++){
-            interests.add(walls[j].getName());
+            interests.add(walls[j]);
         }
         }else{
             for(int l=0; l<4; l++){
-            interests.add(walls[l].getName());
+            interests.add(walls[l]);
             }
         }
         String[] interestsArray = new String[interests.size()];
