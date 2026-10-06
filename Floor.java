@@ -1,11 +1,9 @@
-public class Item {
-    private String lore;
+public class Floor {
+    private Tile[] tiles;
     private String name;
     private String action;
-    public Item(String n, String l, String u){
-        lore=l;
-        name=n;
-        action=u;
+    public Floor (Tile[] tList) {
+        tiles = tList;
     }
 
     public String use(){

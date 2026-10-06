@@ -1,18 +1,17 @@
 public class Wall {
-    private String name;
     private Boolean solid;
     private String inspect;
+    private int ID;
 
-    public Wall(String n, String i, Boolean s){
-      name = n;
+    public Wall(String i, Boolean s, int id2){
       solid = s;
-      inspect =i;
+      inspect = i;
+      ID = id2;
     }
 
     public Wall(){
       solid = true;
-      name = "wall";
-      inspect ="Its a solid wall";
+      inspect = "Its a solid wall";
     }
 
     public void invertSolid(){
@@ -21,13 +20,11 @@ public class Wall {
     public String inspect(){
       return inspect;
     }
-    public String getName(){
-        return name;
+
+    public int getID() {
+      return ID;
     }
     public void setInspect(String i){
       inspect=i;
-    }
-    public void setName(String n){
-      name=n;
     }
 }
