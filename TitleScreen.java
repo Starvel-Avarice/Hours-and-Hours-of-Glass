@@ -18,7 +18,7 @@ public class TitleScreen extends JFrame{
     private Font titleFont = new Font("Papyrus",Font.PLAIN,75);
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
     
-    //EventHandler titleHandler = new EventHandler();
+    EventHandler titleHandler = new EventHandler();
 
     public TitleScreen(){
         setupJFrame();
@@ -79,6 +79,10 @@ public class TitleScreen extends JFrame{
         startButton.setBackground(Color.decode("#f6d7b0"));
         startButton.setForeground(Color.decode("#4a4540"));
         startButton.setFont(normalFont);
+        startButton.addActionListener(titleHandler);
+        startButton.setFocusPainted(false);
+
+        startButton.setActionCommand("startGame");
         
         
         startPanel.add(startButton);
@@ -89,10 +93,6 @@ public class TitleScreen extends JFrame{
 
         startPanel.setVisible(true);
     }
-    // public EventHandler getHandler(){
-    //     return titleHandler;
-    // }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(()->new TitleScreen().setVisible(true));
     }
