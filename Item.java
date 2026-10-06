@@ -12,9 +12,9 @@ public class Item{
         return this.action;
     }
     public String inspect(){
-        return name+": " +lore;
+        return name+": "+lore;
     }
-    public String look(){
+    public String getName(){
         return name;
     }
 
