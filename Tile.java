@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Tile {
-    private Item[] items;
+    private int[] items;
     private int[] walls;
     private int ladder;
 
