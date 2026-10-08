@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Tile {
-    private Item[] items;
+    private int[] items;
     private int[] walls;
     private int ladder;
 
@@ -26,11 +26,11 @@ public class Tile {
             interests.add(items[i].getName());
         }
         for(int j=0;j<4;j++){
-            interests.add(walls[j]);
+            interests.add(Integer.toString(walls[j]));
         }
         }else{
             for(int l=0; l<4; l++){
-            interests.add(walls[l]);
+            interests.add(Integer.toString(walls[l]));;
             }
         }
         String[] interestsArray = new String[interests.size()];
@@ -41,7 +41,7 @@ public class Tile {
     }
     
     public String inspectWall(int direction){
-        return walls[direction].inspect();
+        return Integer.toString(walls[direction]);
     }
 
 
