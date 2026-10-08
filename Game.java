@@ -15,7 +15,7 @@ public class Game {
         // String[] looked= test.look();
         // System.out.println(test.inspectWall(1));
         // for(String s:looked){
-        // System.out.println(s);}
+        // System.out.println(s);} 
         
         Floor demoFloor = new Floor();
         String fileName = "demo.txt";
