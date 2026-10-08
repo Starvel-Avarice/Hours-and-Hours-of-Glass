@@ -58,6 +58,11 @@ public class Game {
         return newArray;
     }
 
+        new Item().genItemHash();
+
+            Item Compass = new Item(0);
+            System.out.print(Compass.getLore());
+    }
     public class EventHandler implements ActionListener {
         public EventHandler(){
 
