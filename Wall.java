@@ -9,7 +9,7 @@ public class Wall {
       ID = id2;
     }
 
-    public Wall(){
+    public Wall() {
       solid = true;
       inspect = "Its a solid wall";
     }

@@ -4,17 +4,27 @@ public class Tile {
     private int[] items;
     private int[] walls;
     private int ladder;
+    private int[] coords;
+    private String lookText;
+    private String fullText;
 
-    public Tile(Item[] i, int[] wI, int l){
+    public Tile(int[] wI, int l, int[] i, int[] cs, String lt, String ft){
         items = i;
-        walls = wI;
         ladder = l;
+        walls = wI;
+        coords = cs;
+        lookText = lt;
+        fullText = ft;
     }
 
     public Tile(Boolean[] w){
     items = null;
     ladder = 0;
     }       
+
+    public Tile() {
+
+    }
 
     public String[] look(){
 
@@ -23,7 +33,7 @@ public class Tile {
         if(items!=null){
         for(int i=0;i<(items.length);i++){
             System.out.println(items);
-            interests.add(items[i].getName());
+            interests.add(Integer.toString(items[i]));
         }
         for(int j=0;j<4;j++){
             interests.add(Integer.toString(walls[j]));
