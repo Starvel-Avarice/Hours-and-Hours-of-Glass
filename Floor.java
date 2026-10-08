@@ -1,18 +1,18 @@
+import java.util.ArrayList;
+
 public class Floor {
-    private Tile[] tiles;
+    private ArrayList<Tile> tiles;
     private String name;
-    private String action;
-    public Floor (Tile[] tList) {
+    public Floor (ArrayList<Tile> tList, String n) {
         tiles = tList;
+        name = n;
     }
 
-    public String use(){
-        return this.action;
+    public Floor() {
+        
     }
-    public String inspect(){
-        return name+": "+lore;
-    }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
 
