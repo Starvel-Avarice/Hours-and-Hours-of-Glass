@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.util.Scanner;
 
 public class Game {
     public static void main(String[] args) {
@@ -15,36 +16,6 @@ public class Game {
         // System.out.println(test.inspectWall(1));
         // for(String s:looked){
         // System.out.println(s);} 
-        
-        Floor demoFloor = new Floor();
-        String fileName = "demo.txt";
-
-        try {
-            Scanner sc = new Scanner(new File(fileName));
-            while (sc.hasNextLine()) {
-                String myLine = sc.nextLine();
-                String[] splits = myLine.split("\t");
-
-                String[] walls = splits[0].split(",");
-                int[] wallInts = stringArrayToIntArray(walls);
-                
-                int upOrDown = Integer.parseInt(splits[1]);
-
-                String[] items = splits[2].split(",");
-                int[] itemIds = stringArrayToIntArray(items);
-
-                String[] coords = splits[3].split(",");
-                int[] coordInts = stringArrayToIntArray(coords);
-
-                String lookText = splits[4];
-                String fullText = splits[5];
-
-                demoFloor.addTile(new Tile(wallInts, upOrDown, itemIds, coordInts, lookText, fullText));
-            }
-                sc.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
         int x = -1;
         int y = -3;
@@ -87,7 +58,7 @@ public class Game {
             }
 
             if (wallToCheck != -1) {
-                if (selectedTile.getWalls()[wallToCheck] == 1) {
+                if (!selectedTile.getWall(wallToCheck).getSolid()) {
                     System.out.println("Success!");
                     if (wallToCheck == 0) {
                         y++;
@@ -103,7 +74,7 @@ public class Game {
                 }
             }
         }
-        playerInputScanner.close();
+        playerInputScanner.close(); }
     }
     public static Tile searchForTile(int x, int y, Floor myFloor) {
         for (Tile myTile : myFloor.getTiles()) {
@@ -113,12 +84,6 @@ public class Game {
             }
         }
         return new Tile();
-    }
-    public static int[] stringArrayToIntArray(String[] oldArray) {
-        int[] newArray = new int[oldArray.length];
-        for (int i = 0; i < oldArray.length; i++) {
-            newArray[i] = Integer.parseInt(oldArray[i]);
-        }
     }
 
     public class EventHandler implements ActionListener {

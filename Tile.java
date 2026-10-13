@@ -21,23 +21,24 @@ public class Tile {
     items = null;
     ladder = 0;
     }       
-
-    public String getFullText(){
-        return fullText;
-    }
     public Tile() {
 
-    }
-    public String inspectWall(int direction){
-        return Integer.toString(walls[direction]);
     }
 
     public int[] getCoords() {
         return coords;
     }
 
-    public int[] getWalls() {
+    public Wall[] getWalls() {
         return walls;
+    }
+
+    public Wall getWall(int x) {
+        return walls[x];
+    }
+
+    public Item[] getItems() {
+        return items;
     }
 
     public String getLookText() {
