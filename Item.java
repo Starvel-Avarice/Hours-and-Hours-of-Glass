@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Map;
 
 public class Item {
     private String lore;
@@ -12,11 +11,6 @@ public class Item {
         name=n;
         action=u;
     }
-    public void genItemHash(){
-        itemHash.put(0, new Item("Compass","Tells you where North is", "NONE"));
-        itemHash.put(1, new Item("Torch","Lights up the way", "TorchUse"));
-    }
-    public Item(){}
 
     public Item(int id){
        if(itemHash.containsKey(id)){
@@ -25,13 +19,19 @@ public class Item {
         name = i.getName();
         action = i.use();
        }else{
-        System.out.print("Unkown Item ID:"+id);
+        System.out.println("Unkown Item ID:"+id);
        }
+    }
+
+    public static void genItemHash(){
+        itemHash.put(0, new Item("Compass","Tells you where North is", "NONE"));
+        itemHash.put(1, new Item("Torch","Lights up the way", "TorchUse"));
     }
 
     public String use(){
         return action;
     }
+
     public String getLore(){
         return lore;
     }

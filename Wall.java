@@ -10,9 +10,7 @@ public class Wall {
       inspect = i;
     }
 
-    public Wall(){}
-
-    public void genWallHash(){
+    public static void genWallHash(){
         wallHash.put(0, new Wall("There is nothing there",false));
         wallHash.put(1, new Wall("It's a solid wall",true));
     }
@@ -23,9 +21,10 @@ public class Wall {
         inspect = i.getInspect();
         solid = i.getSolid();
        }else{
-        System.out.print("Unkown Item ID:"+id);
+        System.out.println("Unkown Wall ID:"+id);
        }
     }
+
 
 
     public void invertSolid(){

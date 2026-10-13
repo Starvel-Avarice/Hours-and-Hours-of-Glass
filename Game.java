@@ -1,15 +1,14 @@
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Game {
     public static void main(String[] args) {
-        int[] Walls = new int[] {0, 0, 2, 0};
+        Item.genItemHash();
+        Wall.genWallHash();
 
-        Item Torch = new Item("torch", "Lights the way", "torchUse");
-        Item[] lights = {Torch, Torch};
 
+        Floor demoFloor = new Floor("demo.txt");
+        for(String  s:demoFloor.listTiles()){
+            System.out.println(s);
         // Tile test = new Tile(lights, Walls, 0);
         // Tile test1 = new Tile(null, Walls, 1);
         // String[] looked= test.look();
@@ -120,7 +119,6 @@ public class Game {
         for (int i = 0; i < oldArray.length; i++) {
             newArray[i] = Integer.parseInt(oldArray[i]);
         }
-        return newArray;
     }
 
     public class EventHandler implements ActionListener {
