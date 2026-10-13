@@ -28,7 +28,7 @@ public class Tile {
 
     }
 
-    public String[] look(){
+    public String[] look() {
 
        ArrayList<String> interests = new ArrayList<String>();
 
@@ -56,5 +56,20 @@ public class Tile {
         return Integer.toString(walls[direction]);
     }
 
+    public int[] getCoords() {
+        return coords;
+    }
+
+    public int[] getWalls() {
+        return walls;
+    }
+
+    public String getLookText() {
+        return lookText;
+    }
+
+    public String getFullText() {
+        return fullText;
+    }
 
 }

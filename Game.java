@@ -38,18 +38,83 @@ public class Game {
                 int[] coordInts = stringArrayToIntArray(coords);
 
                 String lookText = splits[4];
-                String fullText = splits[4];
+                String fullText = splits[5];
 
                 demoFloor.addTile(new Tile(wallInts, upOrDown, itemIds, coordInts, lookText, fullText));
-
             }
                 sc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-    }
+        int x = -1;
+        int y = -3;
 
+        boolean Light = false;
+        
+        Scanner playerInputScanner = new Scanner(System.in);
+
+        String playerInput = "";
+
+        System.out.println("WELCOME TO THE DEMO!");
+        System.out.println("Enter your player name: ");
+        playerInput = playerInputScanner.nextLine();   // read text input
+
+        while (!playerInput.equals("QUIT")) {
+            Tile selectedTile = searchForTile(x, y, demoFloor);
+
+            System.out.println();
+            System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+
+            System.out.println();
+            System.out.println(selectedTile.getFullText());
+
+            System.out.println();
+            System.out.print("Type N to go North, W to go West, S to go South and E to go East. ");
+            playerInput = playerInputScanner.nextLine();
+            
+            int wallToCheck = -1;
+
+            if (playerInput.equals("N")) {
+                wallToCheck = 0;
+            } else if (playerInput.equals("S")) {
+                wallToCheck = 1;
+            } else if (playerInput.equals("W")) {
+                wallToCheck = 2;
+            } else if (playerInput.equals("E")) {
+                wallToCheck = 3;
+            } else {
+                wallToCheck = -1;
+            }
+
+            if (wallToCheck != -1) {
+                if (selectedTile.getWalls()[wallToCheck] == 1) {
+                    System.out.println("Success!");
+                    if (wallToCheck == 0) {
+                        y++;
+                    } else if (wallToCheck == 1) {
+                        y--;
+                    } else if (wallToCheck == 2) {
+                        x--;
+                    } else if (wallToCheck == 3) {
+                        x++;
+                    }
+                } else {
+                    System.out.println("There is a wall here.");
+                }
+            }
+        }
+        playerInputScanner.close();
+    }
+    public static Tile searchForTile(int x, int y, Floor myFloor) {
+        for (Tile myTile : myFloor.getTiles()) {
+            int[] coords = myTile.getCoords();
+            if (coords[0] == x && coords[1] == y) {
+                return myTile;
+            }
+        }
+        return new Tile();
+    }
     public static int[] stringArrayToIntArray(String[] oldArray) {
         int[] newArray = new int[oldArray.length];
         for (int i = 0; i < oldArray.length; i++) {
