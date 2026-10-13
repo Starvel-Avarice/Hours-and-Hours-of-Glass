@@ -71,5 +71,9 @@ public class Floor {
         }
         return newArray;
     }
+    public ArrayList<Tile> getTiles() {
+        return tiles;
+    }
+
 }
 

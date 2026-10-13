@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Tile {
     private Item[] items;
@@ -27,4 +25,27 @@ public class Tile {
     public String getFullText(){
         return fullText;
     }
+    public Tile() {
+
+    }
+    public String inspectWall(int direction){
+        return Integer.toString(walls[direction]);
+    }
+
+    public int[] getCoords() {
+        return coords;
+    }
+
+    public int[] getWalls() {
+        return walls;
+    }
+
+    public String getLookText() {
+        return lookText;
+    }
+
+    public String getFullText() {
+        return fullText;
+    }
+
 }
