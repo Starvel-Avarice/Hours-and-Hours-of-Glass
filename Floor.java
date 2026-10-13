@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Floor {
-    private ArrayList<Tile> tiles;
+    private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private String name;
     public Floor (ArrayList<Tile> tList, String n) {
         tiles = tList;
@@ -9,11 +9,16 @@ public class Floor {
     }
 
     public Floor() {
-        
+
     }
 
     public String getName() {
         return name;
     }
 
+    public void addTile(Tile tile) {
+        tiles.add(tile);
+    }
+
 }
+
