@@ -3,10 +3,9 @@ import java.util.ArrayList;
 public class Floor {
     private ArrayList<Tile> tiles = new ArrayList<Tile>();
     private String name;
-    public Floor (ArrayList<Tile> tList, String f, String n) {
+    public Floor (ArrayList<Tile> tList, String n) {
         tiles = tList;
         name = n;
-        fileName = f;
     }
 
     public Floor() {
@@ -15,10 +14,6 @@ public class Floor {
 
     public String getName() {
         return name;
-    }
-
-    public void setFileName(String newFileName) {
-        fileName = newFileName;
     }
 
     public void addTile(Tile tile) {
