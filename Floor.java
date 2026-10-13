@@ -20,5 +20,9 @@ public class Floor {
         tiles.add(tile);
     }
 
+    public ArrayList<Tile> getTiles() {
+        return tiles;
+    }
+
 }
 
