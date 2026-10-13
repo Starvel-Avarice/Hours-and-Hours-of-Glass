@@ -1,33 +1,46 @@
+import java.util.HashMap;
+
 public class Wall {
-    private String name;
     private Boolean solid;
     private String inspect;
+    private static HashMap<Integer, Wall> wallHash= new HashMap<>();
 
-    public Wall(String n, String i, Boolean s){
-      name = n;
+    public Wall(String i, Boolean s){
       solid = s;
-      inspect =i;
+      inspect = i;
     }
 
-    public Wall(){
-      solid = true;
-      name = "wall";
-      inspect ="Its a solid wall";
+    public static void genWallHash(){
+        wallHash.put(0, new Wall("There is nothing there",false));
+        wallHash.put(1, new Wall("It's a solid wall",true));
     }
+
+    public Wall(int id){
+        if(wallHash.containsKey(id)){
+        Wall i = wallHash.get(id);
+        inspect = i.getInspect();
+        solid = i.getSolid();
+       }else{
+        System.out.println("Unkown Wall ID:"+id);
+       }
+    }
+
+
 
     public void invertSolid(){
       this.solid=!solid;
     }
-    public String inspect(){
+    
+    public String getInspect(){
       return inspect;
     }
-    public String getName(){
-        return name;
+
+    public Boolean getSolid() {
+        return solid;
     }
+
     public void setInspect(String i){
       inspect=i;
     }
-    public void setName(String n){
-      name=n;
-    }
+
 }
