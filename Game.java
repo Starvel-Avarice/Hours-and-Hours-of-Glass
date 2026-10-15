@@ -3,10 +3,11 @@ import java.util.Scanner;
 
 public class Game {
     public static void main(String[] args) {
+        boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
 
-
+        boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
         for(String  s:demoFloor.listTiles()){
             System.out.println(s);
@@ -19,47 +20,85 @@ public class Game {
 
         int x = -1;
         int y = -3;
-
-        boolean Light = false;
         
         Scanner playerInputScanner = new Scanner(System.in);
 
         String playerInput = "";
 
         System.out.println("WELCOME TO THE DEMO!");
-        System.out.println("Enter your player name: ");
+        System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
 
         while (!playerInput.equals("QUIT")) {
             Tile selectedTile = searchForTile(x, y, demoFloor);
 
-            System.out.println();
-            System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+            if (newTile) {
+                newTile = false;
 
-            System.out.println();
-            System.out.println(selectedTile.getFullText());
+                System.out.println();
+                System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
 
+                System.out.println();
+
+                if (!selectedTile.isDark() || hasTorch) {
+                    System.out.println(selectedTile.getFullText());
+                } else {
+                    System.out.println("You can't see anything.");
+                }
+
+                System.out.println();
+
+                if (!hasTorch) {
+                    if (look(selectedTile, x, y, "N", demoFloor, false, false)) {
+                        System.out.print("North: ");
+                        look(selectedTile, x, y, "N", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "S", demoFloor, false, false)) {
+                        System.out.print("South: ");
+                        look(selectedTile, x, y, "S", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "W", demoFloor, false, false)) {
+                        System.out.print("West: ");
+                        look(selectedTile, x, y, "W", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "E", demoFloor, false, false)) {
+                        System.out.print("East: ");
+                        look(selectedTile, x, y, "E", demoFloor, false, true);
+                    }
+                }
+            }
             System.out.println();
             System.out.print("Type N to go North, W to go West, S to go South and E to go East. ");
+            System.out.print("Type LN to look North, LW to look West, LS to look South, and LE to look East. ");
             playerInput = playerInputScanner.nextLine();
             
             int wallToCheck = -1;
-
-            if (playerInput.equals("N")) {
-                wallToCheck = 0;
-            } else if (playerInput.equals("S")) {
-                wallToCheck = 1;
-            } else if (playerInput.equals("W")) {
-                wallToCheck = 2;
-            } else if (playerInput.equals("E")) {
-                wallToCheck = 3;
-            } else {
-                wallToCheck = -1;
+            if (playerInput.length() == 1) {
+                if (playerInput.equals("N")) {
+                    wallToCheck = 0;
+                } else if (playerInput.equals("S")) {
+                    wallToCheck = 1;
+                } else if (playerInput.equals("W")) {
+                    wallToCheck = 2;
+                } else if (playerInput.equals("E")) {
+                    wallToCheck = 3;
+                } else {
+                    wallToCheck = -1;
+                }
+            } else if (playerInput.length() == 2) {
+                if (playerInput.equals("LN")) {
+                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true);
+                } else if (playerInput.equals("LS")) {
+                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true);
+                } else if (playerInput.equals("LW")) {
+                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true);
+                } else if (playerInput.equals("LE")) {
+                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true);
+                } else {
+                    wallToCheck = -1;
+                }
             }
 
             if (wallToCheck != -1) {
                 if (!selectedTile.getWall(wallToCheck).getSolid()) {
-                    System.out.println("Success!");
+                    newTile = true;
                     if (wallToCheck == 0) {
                         y++;
                     } else if (wallToCheck == 1) {
@@ -84,6 +123,57 @@ public class Game {
             }
         }
         return new Tile();
+    }
+
+    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot) {
+        Wall[] myWalls = myTile.getWalls();
+        int wallToCheck = -1;
+
+        int lookX = x;
+        int lookY = y;
+
+        if (dir.equals("N")) {
+            wallToCheck = 0;
+            lookY++;
+        } else if (dir.equals("S")) {
+            wallToCheck = 1;
+            lookY--;
+        } else if (dir.equals("W")) {
+            wallToCheck = 2;
+            lookX--;
+        } else if (dir.equals("E")) {
+            wallToCheck = 3;
+            lookX++;
+        } else {
+            wallToCheck = -1;
+        }
+
+        Tile targetTile = searchForTile(lookX, lookY, myFloor);
+        if (!myWalls[wallToCheck].getSolid()) {
+            if (hasTorch || !targetTile.isDark()) {
+                if (printOrNot) {
+                    System.out.println(targetTile.getLookText());
+                }
+                return true;
+            } else {
+                if (myTile.isDark()) {
+                    if (printOrNot) {
+                        System.out.println("Too dark to see...");
+                    }
+                    return false;
+                } else {
+                    if (printOrNot) {
+                        System.out.println("There is something here, but it is too dark to see what it is...");
+                    }
+                    return true;
+                }
+            }
+        } else {
+            if (printOrNot) {
+                System.out.println("Too dark to see...");
+            }
+            return false;
+        }
     }
 
     public class EventHandler implements ActionListener {
