@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class Tile {
-    private Item[] items;
+    private ArrayList<Item> items;
     private Wall[] walls;
     private int ladder;
     private int[] coords;
     private String lookText;
     private String fullText;
 
-    public Tile( Wall[] w, int l, Item[] i, int[] cds, String lt, String ft ){
+    public Tile( Wall[] w, int l, ArrayList<Item> i, int[] cds, String lt, String ft ){
         walls = w;
         items = i;
         ladder = l;
@@ -37,7 +37,7 @@ public class Tile {
         return walls[x];
     }
 
-    public Item[] getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 
@@ -48,5 +48,19 @@ public class Tile {
     public String getFullText() {
         return fullText;
     }
+
+    public Item takeItem(String itemName){
+        for(int i=0; i<items.size(); i++){
+            System.out.println(items.get(i).getName());
+            if(items.get(i).getName().equals(itemName)){
+                int taken = items.get(i).getItemId();
+                items.remove(i);
+                return new Item(taken);
+            }
+        }
+        return null;
+    }
+
+
 
 }

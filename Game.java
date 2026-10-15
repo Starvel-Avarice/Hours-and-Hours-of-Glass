@@ -8,6 +8,7 @@ public class Game {
 
 
         Floor demoFloor = new Floor("demo.txt");
+
         for(String  s:demoFloor.listTiles()){
             System.out.println(s);
         // Tile test = new Tile(lights, Walls, 0);
@@ -31,7 +32,7 @@ public class Game {
         playerInput = playerInputScanner.nextLine();   // read text input
 
         while (!playerInput.equals("QUIT")) {
-            Tile selectedTile = searchForTile(x, y, demoFloor);
+            Tile selectedTile = demoFloor.searchForTile(x, y);
 
             System.out.println();
             System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
@@ -75,15 +76,6 @@ public class Game {
             }
         }
         playerInputScanner.close(); }
-    }
-    public static Tile searchForTile(int x, int y, Floor myFloor) {
-        for (Tile myTile : myFloor.getTiles()) {
-            int[] coords = myTile.getCoords();
-            if (coords[0] == x && coords[1] == y) {
-                return myTile;
-            }
-        }
-        return new Tile();
     }
 
     public class EventHandler implements ActionListener {

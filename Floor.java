@@ -27,9 +27,9 @@ public class Floor {
                 int upOrDown = Integer.parseInt(splits[1]);
 
                 int[] itemIds = stringArrayToIntArray(splits[2].split(","));
-                Item[] items = new Item[itemIds.length];
+                ArrayList<Item> items = new ArrayList<>();
                 for(int i=0; i<itemIds.length; i++){
-                    items[i] = new Item(itemIds[i]);
+                    items.add(new Item(itemIds[i]));
                 };
 
                 String[] coords = splits[3].split(",");
@@ -74,6 +74,14 @@ public class Floor {
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
-
+    public Tile searchForTile(int x, int y) {
+        for (Tile myTile : this.getTiles()) {
+            int[] coords = myTile.getCoords();
+            if (coords[0] == x && coords[1] == y) {
+                return myTile;
+            }
+        }
+        return new Tile();
+    }
 }
 
