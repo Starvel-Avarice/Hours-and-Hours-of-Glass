@@ -11,8 +11,8 @@ public class Wall {
     }
 
     public static void genWallHash(){
-        wallHash.put(0, new Wall("There is nothing there",false));
-        wallHash.put(1, new Wall("It's a solid wall",true));
+        wallHash.put(1, new Wall("There is nothing there",false));
+        wallHash.put(0, new Wall("It's a solid wall",true));
     }
 
     public Wall(int id){
@@ -21,7 +21,7 @@ public class Wall {
         inspect = i.getInspect();
         solid = i.getSolid();
        }else{
-        System.out.println("Unkown Wall ID:"+id);
+        System.out.println("Unknown Wall ID:"+id);
        }
     }
 
@@ -41,6 +41,10 @@ public class Wall {
 
     public void setInspect(String i){
       inspect=i;
+    }
+
+    public String getWallString(){
+      return inspect;
     }
 
 }
