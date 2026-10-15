@@ -9,8 +9,8 @@ public class Game {
 
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
-        for(String  s:demoFloor.listTiles()){
-            System.out.println(s);
+        // for(String  s:demoFloor.listTiles()){
+        //     System.out.println(s); }
         // Tile test = new Tile(lights, Walls, 0);
         // Tile test1 = new Tile(null, Walls, 1);
         // String[] looked= test.look();
@@ -42,26 +42,30 @@ public class Game {
 
                 if (!selectedTile.isDark() || hasTorch) {
                     System.out.println(selectedTile.getFullText());
+                    System.out.println();
                 } else {
                     System.out.println("You can't see anything.");
+                    System.out.println();
                 }
 
-                System.out.println();
-
-                if (!hasTorch) {
-                    if (look(selectedTile, x, y, "N", demoFloor, false, false)) {
+                if (true) {
+                    if (look(selectedTile, x, y, "N", demoFloor, false, false, false)) {
                         System.out.print("North: ");
-                        look(selectedTile, x, y, "N", demoFloor, false, true);
-                    } if (look(selectedTile, x, y, "S", demoFloor, false, false)) {
+                        look(selectedTile, x, y, "N", demoFloor, false, true, false);
+                    } if (look(selectedTile, x, y, "S", demoFloor, false, false, false)) {
                         System.out.print("South: ");
-                        look(selectedTile, x, y, "S", demoFloor, false, true);
-                    } if (look(selectedTile, x, y, "W", demoFloor, false, false)) {
+                        look(selectedTile, x, y, "S", demoFloor, false, true, false);
+                    } if (look(selectedTile, x, y, "W", demoFloor, false, false, false)) {
                         System.out.print("West: ");
-                        look(selectedTile, x, y, "W", demoFloor, false, true);
-                    } if (look(selectedTile, x, y, "E", demoFloor, false, false)) {
+                        look(selectedTile, x, y, "W", demoFloor, false, true, false);
+                    } if (look(selectedTile, x, y, "E", demoFloor, false, false, false)) {
                         System.out.print("East: ");
-                        look(selectedTile, x, y, "E", demoFloor, false, true);
+                        look(selectedTile, x, y, "E", demoFloor, false, true, false);
                     }
+                }
+                if (x == 0 && y == -3) {
+                    System.out.println("Light acquired!");
+                    hasTorch = true;
                 }
             }
             System.out.println();
@@ -84,18 +88,17 @@ public class Game {
                 }
             } else if (playerInput.length() == 2) {
                 if (playerInput.equals("LN")) {
-                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true);
+                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true, true);
                 } else if (playerInput.equals("LS")) {
-                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true);
+                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true, true);
                 } else if (playerInput.equals("LW")) {
-                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true);
+                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true, true);
                 } else if (playerInput.equals("LE")) {
-                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true);
+                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true, true);
                 } else {
                     wallToCheck = -1;
                 }
             }
-
             if (wallToCheck != -1) {
                 if (!selectedTile.getWall(wallToCheck).getSolid()) {
                     newTile = true;
@@ -113,7 +116,7 @@ public class Game {
                 }
             }
         }
-        playerInputScanner.close(); }
+        playerInputScanner.close(); 
     }
     public static Tile searchForTile(int x, int y, Floor myFloor) {
         for (Tile myTile : myFloor.getTiles()) {
@@ -125,7 +128,7 @@ public class Game {
         return new Tile();
     }
 
-    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot) {
+    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot, boolean detailed) {
         Wall[] myWalls = myTile.getWalls();
         int wallToCheck = -1;
 
@@ -152,7 +155,11 @@ public class Game {
         if (!myWalls[wallToCheck].getSolid()) {
             if (hasTorch || !targetTile.isDark()) {
                 if (printOrNot) {
-                    System.out.println(targetTile.getLookText());
+                    if (detailed) {
+                        System.out.println(targetTile.getLookText());
+                    } else {
+                        System.out.println("There is something here. Take a look!");
+                    }
                 }
                 return true;
             } else {
