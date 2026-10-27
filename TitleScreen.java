@@ -93,7 +93,7 @@ public class TitleScreen extends JFrame{
         con.setComponentZOrder(border, 2);
 
         startPanel.setVisible(true);
-    }  
+    } 
     public Container getCon(){
         return con;
     }

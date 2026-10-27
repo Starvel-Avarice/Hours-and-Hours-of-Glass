@@ -201,7 +201,7 @@ public class Game {
                     actionScreen.updateInfo("Please tell me this works");
                     break;
             
-                default:
+                default: 
                     break;
             }
         }
