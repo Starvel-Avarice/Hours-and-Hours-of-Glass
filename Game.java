@@ -5,6 +5,8 @@ public class Game {
     private static TitleScreen titleScreen;
     private static ActionScreen actionScreen;
     public static void main(String[] args) {
+        titleScreen = new TitleScreen();
+
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
