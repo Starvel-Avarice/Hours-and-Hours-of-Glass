@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.EventHandler;
 
 
 public class TitleScreen extends JFrame{
