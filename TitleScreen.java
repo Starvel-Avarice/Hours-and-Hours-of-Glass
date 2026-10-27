@@ -38,7 +38,6 @@ public class TitleScreen extends JFrame{
         window.setTitle("Hours and Hours of Glass");
         window.pack();
         window.setLocationRelativeTo(null);
-        window.setVisible(true);
         con=window.getContentPane();
        
     }

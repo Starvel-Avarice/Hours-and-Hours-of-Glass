@@ -2,6 +2,8 @@ import java.awt.event.*;
 import java.util.Scanner;
 
 public class Game {
+    private static TitleScreen titleScreen;
+    private static ActionScreen actionScreen;
     public static void main(String[] args) {
         boolean newTile = true;
         Item.genItemHash();
@@ -188,7 +190,18 @@ public class Game {
 
         }
         public void actionPerformed(ActionEvent event){
-        
+            String command = event.getActionCommand();
+            switch (command) {
+                case "startGame":
+                    titleScreen.closeFirstScreen();
+                    actionScreen=new ActionScreen(titleScreen.getCon());
+                    actionScreen.openMainScreen();
+                    actionScreen.updateInfo("Please tell me this works");
+                    break;
+            
+                default:
+                    break;
+            }
         }
     }
 }
