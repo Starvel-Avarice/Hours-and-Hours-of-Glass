@@ -17,7 +17,8 @@ public class ActionScreen {
     private JButton moveButton;
     private JButton interButton;
 
-    private JPanel compassGrid;
+    private JPanel dirCompassGrid;
+    private JPanel lookCompassGrid;
 
     private JButton north;
     private JButton east;
@@ -27,6 +28,7 @@ public class ActionScreen {
 
     private Game game = new Game();
     Game.EventHandler choiceHandler = game.new EventHandler();
+    Game.EventHandler compassHandler = game.new EventHandler();
 
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
@@ -130,7 +132,6 @@ public class ActionScreen {
         lookPanel.setVisible(true);
         movePanel.setVisible(true);
         interPanel.setVisible(true);
-        compassGrid.setVisible(false);
         grabber.revalidate();
         grabber.repaint();
     }
@@ -139,76 +140,159 @@ public class ActionScreen {
         infoText.setText(text);
     }
     
-    public void compass(){
+    public void dirCompass(){
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
         updateInfo("What direction do you want to go?");
 
-        compassGrid = new JPanel();
-        compassGrid.setBounds(screenSize.width/2-225,555,450,250);
-        compassGrid.setBackground(Color.decode("#f6d7b0"));
-        compassGrid.setLayout(new GridLayout(3,3));
-        compassGrid.setVisible(true);
-        compassGrid.add(new JLabel());
+        dirCompassGrid = new JPanel();
+        dirCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        dirCompassGrid.setBackground(Color.decode("#f6d7b0"));
+        dirCompassGrid.setLayout(new GridLayout(3,3));
+        dirCompassGrid.setVisible(true);
+        dirCompassGrid.add(new JLabel());
 
         north = new JButton("North");
         north.setBackground(Color.decode("#efb787"));
         north.setForeground(Color.decode("#4a4540"));
         north.setFont(normalFont);
-        north.addActionListener(choiceHandler);
+        north.addActionListener(compassHandler);
         north.setFocusPainted(false);
         north.setActionCommand("north");
 
 
-        compassGrid.add(north);
-        compassGrid.add(new JLabel());
+        dirCompassGrid.add(north);
+        dirCompassGrid.add(new JLabel());
 
         west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
         west.setForeground(Color.decode("#4a4540"));
         west.setFont(normalFont);
-        west.addActionListener(choiceHandler);
+        west.addActionListener(compassHandler);
         west.setFocusPainted(false);
         west.setActionCommand("west");
 
-        compassGrid.add(west);
+        dirCompassGrid.add(west);
 
         upDown = new JButton("Up");
         upDown.setBackground(Color.decode("#efb787"));
         upDown.setForeground(Color.decode("#4a4540"));
         upDown.setFont(normalFont);
-        upDown.addActionListener(choiceHandler);
+        upDown.addActionListener(compassHandler);
         upDown.setFocusPainted(false);
+        upDown.setVisible(false);
         upDown.setActionCommand("up");
 
-        compassGrid.add(upDown);
+        dirCompassGrid.add(upDown);
 
         east = new JButton("East");
         east.setBackground(Color.decode("#efb787"));
         east.setForeground(Color.decode("#4a4540"));
         east.setFont(normalFont);
-        east.addActionListener(choiceHandler);
+        east.addActionListener(compassHandler);
         east.setFocusPainted(false);
         east.setActionCommand("east");
 
-        compassGrid.add(east);
-        compassGrid.add(new JLabel());
+        dirCompassGrid.add(east);
+        dirCompassGrid.add(new JLabel());
 
         south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
         south.setForeground(Color.decode("#4a4540"));
         south.setFont(normalFont);
-        south.addActionListener(choiceHandler);
+        south.addActionListener(compassHandler);
         south.setFocusPainted(false);
         south.setActionCommand("south");
 
-        compassGrid.add(south);
-        compassGrid.add(new JLabel());
+        dirCompassGrid.add(south);
+        dirCompassGrid.add(new JLabel());
         
-        grabber.add(compassGrid,0);
+        grabber.add(dirCompassGrid,0);
+
+        
+    }
+    
+    public void lookCompass(){
+        interPanel.setVisible(false);
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        updateInfo("Where do you want to look?");
+
+        lookCompassGrid = new JPanel();
+        lookCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        lookCompassGrid.setBackground(Color.decode("#f6d7b0"));
+        lookCompassGrid.setLayout(new GridLayout(3,3));
+        lookCompassGrid.setVisible(true);
+        lookCompassGrid.add(new JLabel());
+
+        north = new JButton("Ahead");
+        north.setBackground(Color.decode("#efb787"));
+        north.setForeground(Color.decode("#4a4540"));
+        north.setFont(normalFont);
+        north.addActionListener(choiceHandler);
+        north.setFocusPainted(false);
+        north.setActionCommand("ahead");
 
 
+        lookCompassGrid.add(north);
+        lookCompassGrid.add(new JLabel());
+
+        west = new JButton("Left");
+        west.setBackground(Color.decode("#efb787"));
+        west.setForeground(Color.decode("#4a4540"));
+        west.setFont(normalFont);
+        west.addActionListener(choiceHandler);
+        west.setFocusPainted(false);
+        west.setActionCommand("left");
+
+        lookCompassGrid.add(west);
+
+        upDown = new JButton("Current");
+        upDown.setBackground(Color.decode("#efb787"));
+        upDown.setForeground(Color.decode("#4a4540"));
+        upDown.setFont(normalFont);
+        upDown.addActionListener(choiceHandler);
+        upDown.setFocusPainted(false);
+        upDown.setActionCommand("current");
+
+        lookCompassGrid.add(upDown);
+
+        east = new JButton("Right");
+        east.setBackground(Color.decode("#efb787"));
+        east.setForeground(Color.decode("#4a4540"));
+        east.setFont(normalFont);
+        east.addActionListener(choiceHandler);
+        east.setFocusPainted(false);
+        east.setActionCommand("right");
+
+        lookCompassGrid.add(east);
+        lookCompassGrid.add(new JLabel());
+
+        south = new JButton("Behind");
+        south.setBackground(Color.decode("#efb787"));
+        south.setForeground(Color.decode("#4a4540"));
+        south.setFont(normalFont);
+        south.addActionListener(choiceHandler);
+        south.setFocusPainted(false);
+        south.setActionCommand("behind");
+
+        lookCompassGrid.add(south);
+        lookCompassGrid.add(new JLabel());
+        
+        grabber.add(lookCompassGrid,0);
+    }
+
+    public void reset(){
+        if (dirCompassGrid != null) {
+            dirCompassGrid.setVisible(false);
+        }
+        if (lookCompassGrid != null) {
+            lookCompassGrid.setVisible(false);
+        }
+        lookPanel.setVisible(true);
+        movePanel.setVisible(true);
+        interPanel.setVisible(true);
+        updateInfo("This is the main menu");
     }
 }
-

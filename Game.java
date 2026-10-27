@@ -198,10 +198,25 @@ public class Game {
                     titleScreen.closeFirstScreen();
                     actionScreen=new ActionScreen(titleScreen.getCon());
                     actionScreen.openMainScreen();
-                    actionScreen.updateInfo("Please tell me this works");
+                    actionScreen.updateInfo("This is the main menu");
                     break;
                 case "goMove":
-                    actionScreen.compass();
+                    actionScreen.dirCompass();
+                    break;
+                case "goLook":
+                    actionScreen.lookCompass();
+                    break;
+                case "north":
+                case "east":
+                case "west":
+                case "south":
+                case "up":
+                case "ahead":
+                case "left":
+                case "current":
+                case "right":
+                case "behind":
+                    actionScreen.reset();
                     break;
                 default: 
                     break;
