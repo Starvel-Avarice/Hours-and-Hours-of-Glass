@@ -1,48 +1,58 @@
 import java.util.ArrayList;
 
 public class Tile {
-    private  Item[] items;
-    private  Wall[] walls;
-    private  int ladder;
+    private Item[] items;
+    private Wall[] walls;
+    private int ladder;
+    private int[] coords;
+    private String lookText;
+    private String fullText;
+    private boolean dark;
 
-    public Tile(Item[] i, Wall[] wI, int l){
+    public Tile( Wall[] w, int l, Item[] i, int[] cds, String lt, String ft, Boolean d){
+        walls = w;
         items = i;
-        walls = wI;
-        ladder =l;
+        ladder = l;
+        coords = cds;
+        lookText = lt;
+        fullText = ft;
+        dark = d;
     }
 
     public Tile(Boolean[] w){
     items = null;
-    ladder =0;
+    ladder = 0;
     }       
+    public Tile() {
 
-    public String[] look(){
-
-       ArrayList<String> interests = new ArrayList<String>();
-
-        if(items!=null){
-        for(int i=0;i<(items.length);i++){
-            System.out.println(items);
-            interests.add(items[i].getName());
-        }
-        for(int j=0;j<4;j++){
-            interests.add(walls[j].getName());
-        }
-        }else{
-            for(int l=0; l<4; l++){
-            interests.add(walls[l].getName());
-            }
-        }
-        String[] interestsArray = new String[interests.size()];
-        for(int i=0; i<interests.size(); i++){
-            interestsArray[i]=interests.get(i);
-        }
-        return interestsArray;
-    }
-    
-    public String inspectWall(int direction){
-        return walls[direction].inspect();
     }
 
+    public int[] getCoords() {
+        return coords;
+    }
+
+    public Wall[] getWalls() {
+        return walls;
+    }
+
+    public Wall getWall(int x) {
+        return walls[x];
+    }
+
+    public Item[] getItems() {
+        return items;
+    }
+
+    public String getLookText() {
+        return lookText;
+    }
+
+    public String getFullText() {
+        return fullText;
+    }
+
+    public boolean isDark() {
+        return dark;
+    }
 
 }
