@@ -200,7 +200,9 @@ public class Game {
                     actionScreen.openMainScreen();
                     actionScreen.updateInfo("Please tell me this works");
                     break;
-            
+                case "goMove":
+                    actionScreen.compass();
+                    break;
                 default: 
                     break;
             }
