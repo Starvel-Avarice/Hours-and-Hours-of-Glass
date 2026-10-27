@@ -5,6 +5,8 @@ public class Game {
     private static TitleScreen titleScreen;
     private static ActionScreen actionScreen;
     public static void main(String[] args) {
+        titleScreen = new TitleScreen();
+
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
@@ -199,7 +201,7 @@ public class Game {
                     actionScreen.updateInfo("Please tell me this works");
                     break;
             
-                default:
+                default: 
                     break;
             }
         }
