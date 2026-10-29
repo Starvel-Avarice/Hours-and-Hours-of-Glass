@@ -36,9 +36,17 @@ public class Floor {
                 int[] coordInts = stringArrayToIntArray(coords);
 
                 String lookText = splits[4];
-                String fullText = splits[4];
+                String fullText = splits[5];
 
-                this.addTile(new Tile(walls, upOrDown, items, coordInts, lookText, fullText));
+                Boolean dark;
+                
+                if (splits[6].equals("d")) {
+                    dark = true;
+                } else {
+                    dark = false;
+                }
+
+                this.addTile(new Tile(walls, upOrDown, items, coordInts, lookText, fullText, dark));
             }
                 sc.close();
         } catch (FileNotFoundException e) {

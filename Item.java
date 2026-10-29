@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Timer;
 
 public class Item {
     private String lore;
@@ -19,7 +20,7 @@ public class Item {
         Item i = itemHash.get(id);
         lore = i.getLore();
         name = i.getName();
-        action = i.use();
+        //action = i.use();
         knownId = id;
        }else{
         System.out.println("Unkown Item ID:"+id);
@@ -29,14 +30,24 @@ public class Item {
     public static void genItemHash(){
         itemHash.put(0, new Item("Compass","Tells you where North is", "NONE",0));
         itemHash.put(1, new Item("Torch","Lights up the way", "TorchUse",1));
+        itemHash.put(2, new Item("Key","Might open a door", "Key1Use",2));
     }
 
     public int getItemId(){
         return knownId;
     }
 
-    public String use(){
-        return action;
+    public void use(){
+        switch (knownId) {
+            case 1:
+                Game.torchTime = 10000;
+                break;
+            case 2: 
+                if()
+            default:
+                System.out.println("Does nothing");
+                break;
+        }
     }
 
     public String getLore(){
@@ -46,5 +57,5 @@ public class Item {
     public String getName(){
         return name;
     }
-    
+
 }
