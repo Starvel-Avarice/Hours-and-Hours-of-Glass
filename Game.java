@@ -31,6 +31,10 @@ public class Game {
 
     public static void runGame() {
         Timer timer = new Timer();
+        private static TitleScreen titleScreen;
+        private static ActionScreen actionScreen;
+        titleScreen = new TitleScreen();
+
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
@@ -223,9 +227,38 @@ public class Game {
 
         }
         public void actionPerformed(ActionEvent event){
-        
+            String command = event.getActionCommand();
+            switch (command) {
+                case "startGame":
+                    titleScreen.closeFirstScreen();
+                    actionScreen=new ActionScreen(titleScreen.getCon());
+                    actionScreen.openMainScreen();
+                    actionScreen.updateInfo("This is the main menu");
+                    break;
+                case "goMove":
+                    actionScreen.dirCompass();
+                    break;
+                case "goLook":
+                    actionScreen.lookCompass();
+                    break;
+                case "north":
+                case "east":
+                case "west":
+                case "south":
+                case "up":
+                case "ahead":
+                case "left":
+                case "current":
+                case "right":
+                case "behind":
+                    actionScreen.reset();
+                    break;
+                default: 
+                    break;
+            }
         }
     }
 
 
+}
 }

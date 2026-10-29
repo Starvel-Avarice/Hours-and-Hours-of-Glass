@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.beans.EventHandler;
 
 
 public class TitleScreen extends JFrame{
@@ -19,7 +18,8 @@ public class TitleScreen extends JFrame{
     private Font titleFont = new Font("Papyrus",Font.PLAIN,75);
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
     
-    EventHandler titleHandler = new EventHandler();
+    private Game game = new Game();
+    Game.EventHandler titleHandler = game.new EventHandler();
 
     public TitleScreen(){
         setupJFrame();
@@ -38,7 +38,6 @@ public class TitleScreen extends JFrame{
         window.setTitle("Hours and Hours of Glass");
         window.pack();
         window.setLocationRelativeTo(null);
-        window.setVisible(true);
         con=window.getContentPane();
        
     }
@@ -93,6 +92,13 @@ public class TitleScreen extends JFrame{
         con.setComponentZOrder(border, 2);
 
         startPanel.setVisible(true);
+    } 
+    public Container getCon(){
+        return con;
+    }
+    public void closeFirstScreen(){
+        startPanel.setVisible(false);
+        titleLabel.setVisible(false);
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(()->new TitleScreen().setVisible(true));
