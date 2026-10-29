@@ -8,6 +8,7 @@ public class Tick {
     int time[] = {startTime};
     Timer timer = new Timer();
     boolean master;
+    
     public Tick(int s, boolean m, Thread t) {
         Thread myThread = t;
         master = m;
