@@ -1,16 +1,43 @@
 import java.awt.event.*;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Game {
-    private static TitleScreen titleScreen;
-    private static ActionScreen actionScreen;
+    public static volatile Thread mainGame;
+    
     public static void main(String[] args) {
+        
+        mainGame = new Thread(() -> {
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
+                    // Perform task
+                    Thread.sleep(5);    // changing to sleep(5) puts the thread in a sleep state and allows it to be woken up, printing the "Thread interrupted" message below
+                }
+            } catch (InterruptedException e) {
+                System.out.println();
+                // System.out.println("Thread interrupted.");
+
+                // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
+                System.out.println("The Turning has taken place. Game over!");
+                System.exit(0);
+            }
+        });
+        mainGame.start();
+        runGame();
+    }
+    
+
+    public static void runGame() {
+        Timer timer = new Timer();
+        private static TitleScreen titleScreen;
+        private static ActionScreen actionScreen;
         titleScreen = new TitleScreen();
 
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
-
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
         // for(String  s:demoFloor.listTiles()){
@@ -33,8 +60,13 @@ public class Game {
         System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
 
-        while (!playerInput.equals("QUIT")) {
+        Tick masterTimer = new Tick(10, true, mainGame);
+
+        while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
             Tile selectedTile = searchForTile(x, y, demoFloor);
+
+            System.out.print("Time left: ");
+            System.out.println(String.valueOf(masterTimer.getTime()));
 
             if (newTile) {
                 newTile = false;
@@ -121,7 +153,10 @@ public class Game {
             }
         }
         playerInputScanner.close(); 
+        System.out.println("TIME OUT!");
+        System.exit(0);
     }
+
     public static Tile searchForTile(int x, int y, Floor myFloor) {
         for (Tile myTile : myFloor.getTiles()) {
             int[] coords = myTile.getCoords();
@@ -223,4 +258,7 @@ public class Game {
             }
         }
     }
+
+
+}
 }
