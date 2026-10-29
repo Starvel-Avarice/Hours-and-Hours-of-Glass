@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 public class Game {
     public static volatile Thread mainGame;
+    private static TitleScreen titleScreen;
+    private static ActionScreen actionScreen;
     
     public static void main(String[] args) {
         
@@ -28,11 +30,8 @@ public class Game {
         runGame();
     }
     
-
+    
     public static void runGame() {
-        Timer timer = new Timer();
-        private static TitleScreen titleScreen;
-        private static ActionScreen actionScreen;
         titleScreen = new TitleScreen();
 
         boolean newTile = true;
@@ -260,5 +259,4 @@ public class Game {
     }
 
 
-}
 }
