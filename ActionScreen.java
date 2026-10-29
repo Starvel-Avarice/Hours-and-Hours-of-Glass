@@ -6,7 +6,7 @@ public class ActionScreen {
     private JTextArea infoText;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Container grabber;
-
+ 
     private JPanel inventoryPanel;
     private JPanel lookPanel;
     private  JPanel movePanel;
