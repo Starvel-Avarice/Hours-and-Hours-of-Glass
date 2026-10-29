@@ -22,7 +22,7 @@ public class Game {
                 // System.out.println("Thread interrupted.");
 
                 // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
-                System.out.println("The Turning has taken place. Game over!");
+                System.out.println("Game over!");
                 System.exit(0);
             }
         });
@@ -60,7 +60,7 @@ public class Game {
         System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
 
-        Tick masterTimer = new Tick(1000, true, mainGame);
+        Tick masterTimer = new Tick(10, true, mainGame);
 
         while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
             Tile selectedTile = searchForTile(x, y, floor1);
