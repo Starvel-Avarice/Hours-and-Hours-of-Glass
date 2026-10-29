@@ -8,7 +8,7 @@ public class Tick {
     int time[] = {startTime};
     Timer timer = new Timer();
     boolean master;
-    
+
     public Tick(int s, boolean m, Thread t) {
         Thread myThread = t;
         master = m;
@@ -18,14 +18,11 @@ public class Tick {
             public void run() {
                 time[0] -= 1;
                 if (time[0] <= 0) {
-
                     if (master) {
                         myThread.interrupt();
                     }
                     this.cancel();
-                    timer.cancel();
-                    
-                    
+                    timer.cancel(); 
                 }
             }
         }; 

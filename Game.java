@@ -39,6 +39,7 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
+        Floor floor1 = new Floor("floor1_1.txt");
         // for(String  s:demoFloor.listTiles()){
         //     System.out.println(s); }
         // Tile test = new Tile(lights, Walls, 0);
@@ -48,8 +49,8 @@ public class Game {
         // for(String s:looked){
         // System.out.println(s);} 
 
-        int x = -1;
-        int y = -3;
+        int x = 0;
+        int y = 0;
         
         Scanner playerInputScanner = new Scanner(System.in);
 
@@ -59,10 +60,10 @@ public class Game {
         System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
 
-        Tick masterTimer = new Tick(10, true, mainGame);
+        Tick masterTimer = new Tick(1000, true, mainGame);
 
         while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
-            Tile selectedTile = searchForTile(x, y, demoFloor);
+            Tile selectedTile = searchForTile(x, y, floor1);
 
             System.out.print("Time left: ");
             System.out.println(String.valueOf(masterTimer.getTime()));
