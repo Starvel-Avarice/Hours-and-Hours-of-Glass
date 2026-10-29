@@ -43,7 +43,7 @@ public class Item {
                 Game.torchTime = 10000;
                 break;
             case 2: 
-                if()
+            
             default:
                 System.out.println("Does nothing");
                 break;
