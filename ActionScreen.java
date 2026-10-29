@@ -30,6 +30,8 @@ public class ActionScreen {
     Game.EventHandler choiceHandler = game.new EventHandler();
     Game.EventHandler compassHandler = game.new EventHandler();
 
+    private Tile tile = new Tile();
+
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
 
@@ -140,7 +142,9 @@ public class ActionScreen {
         infoText.setText(text);
     }
     
-    public void dirCompass(){
+    public void dirCompass(Floor demoFloor){
+        Boolean[] solids = Game.searchForTile(0, 0, demoFloor).solidWalls() ;
+
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
@@ -160,10 +164,13 @@ public class ActionScreen {
         north.addActionListener(compassHandler);
         north.setFocusPainted(false);
         north.setActionCommand("north");
-
+        // if(solids[0]){
+        //     north.setVisible(false);
+        // } else {north.setVisible(true);}       
 
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
+
 
         west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
@@ -172,8 +179,12 @@ public class ActionScreen {
         west.addActionListener(compassHandler);
         west.setFocusPainted(false);
         west.setActionCommand("west");
+        // if(solids[3]){
+        //     west.setVisible(false);
+        // } else {west.setVisible(true);}
 
         dirCompassGrid.add(west);
+
 
         upDown = new JButton("Up");
         upDown.setBackground(Color.decode("#efb787"));
@@ -193,9 +204,13 @@ public class ActionScreen {
         east.addActionListener(compassHandler);
         east.setFocusPainted(false);
         east.setActionCommand("east");
+        // if(solids[1]){
+        //     east.setVisible(false);
+        // } else {east.setVisible(true);}       
 
         dirCompassGrid.add(east);
         dirCompassGrid.add(new JLabel());
+
 
         south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
@@ -204,9 +219,13 @@ public class ActionScreen {
         south.addActionListener(compassHandler);
         south.setFocusPainted(false);
         south.setActionCommand("south");
+        // if(solids[2]){
+        //     south.setVisible(false);
+        // } else {south.setVisible(true);}      
 
         dirCompassGrid.add(south);
         dirCompassGrid.add(new JLabel());
+ 
         
         grabber.add(dirCompassGrid,0);
 

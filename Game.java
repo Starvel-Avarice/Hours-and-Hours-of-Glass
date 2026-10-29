@@ -2,19 +2,16 @@ import java.awt.event.*;
 import java.util.Scanner;
 
 public class Game {
-    private static TitleScreen titleScreen;
-    private static ActionScreen actionScreen;
     public static void main(String[] args) {
         titleScreen = new TitleScreen();
 
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
-
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
-        // for(String  s:demoFloor.listTiles()){
-        //     System.out.println(s); }
+        for(String  s:demoFloor.listTiles()){
+            System.out.println(s);
         // Tile test = new Tile(lights, Walls, 0);
         // Tile test1 = new Tile(null, Walls, 1);
         // String[] looked= test.look();
@@ -33,43 +30,39 @@ public class Game {
         System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
 
-        while (!playerInput.equals("QUIT")) {
-            Tile selectedTile = searchForTile(x, y, demoFloor);
+        // while (!playerInput.equals("QUIT")) {
+        //     Tile selectedTile = demoFloor.searchForTile(playerX, playerY);
 
-            if (newTile) {
-                newTile = false;
+        //     if (newTile) {
+        //         newTile = false;
 
-                System.out.println();
-                System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+        //         System.out.println();
+        //         System.out.println("Current coordinates: (" + Integer.toString(playerX) + ", " + Integer.toString(playerY) + ")");
 
-                System.out.println();
+        //         System.out.println();
 
                 if (!selectedTile.isDark() || hasTorch) {
                     System.out.println(selectedTile.getFullText());
-                    System.out.println();
                 } else {
                     System.out.println("You can't see anything.");
-                    System.out.println();
                 }
 
-                if (true) {
-                    if (look(selectedTile, x, y, "N", demoFloor, false, false, false)) {
+                System.out.println();
+
+                if (!hasTorch) {
+                    if (look(selectedTile, x, y, "N", demoFloor, false, false)) {
                         System.out.print("North: ");
-                        look(selectedTile, x, y, "N", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "S", demoFloor, false, false, false)) {
+                        look(selectedTile, x, y, "N", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "S", demoFloor, false, false)) {
                         System.out.print("South: ");
-                        look(selectedTile, x, y, "S", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "W", demoFloor, false, false, false)) {
+                        look(selectedTile, x, y, "S", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "W", demoFloor, false, false)) {
                         System.out.print("West: ");
-                        look(selectedTile, x, y, "W", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "E", demoFloor, false, false, false)) {
+                        look(selectedTile, x, y, "W", demoFloor, false, true);
+                    } if (look(selectedTile, x, y, "E", demoFloor, false, false)) {
                         System.out.print("East: ");
-                        look(selectedTile, x, y, "E", demoFloor, false, true, false);
+                        look(selectedTile, x, y, "E", demoFloor, false, true);
                     }
-                }
-                if (x == 0 && y == -3) {
-                    System.out.println("Light acquired!");
-                    hasTorch = true;
                 }
             }
             System.out.println();
@@ -92,17 +85,18 @@ public class Game {
                 }
             } else if (playerInput.length() == 2) {
                 if (playerInput.equals("LN")) {
-                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true, true);
+                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true);
                 } else if (playerInput.equals("LS")) {
-                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true, true);
+                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true);
                 } else if (playerInput.equals("LW")) {
-                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true, true);
+                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true);
                 } else if (playerInput.equals("LE")) {
-                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true, true);
+                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true);
                 } else {
                     wallToCheck = -1;
                 }
             }
+
             if (wallToCheck != -1) {
                 if (!selectedTile.getWall(wallToCheck).getSolid()) {
                     newTile = true;
@@ -120,7 +114,7 @@ public class Game {
                 }
             }
         }
-        playerInputScanner.close(); 
+        playerInputScanner.close(); }
     }
     public static Tile searchForTile(int x, int y, Floor myFloor) {
         for (Tile myTile : myFloor.getTiles()) {
@@ -132,7 +126,7 @@ public class Game {
         return new Tile();
     }
 
-    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot, boolean detailed) {
+    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot) {
         Wall[] myWalls = myTile.getWalls();
         int wallToCheck = -1;
 
@@ -159,11 +153,7 @@ public class Game {
         if (!myWalls[wallToCheck].getSolid()) {
             if (hasTorch || !targetTile.isDark()) {
                 if (printOrNot) {
-                    if (detailed) {
-                        System.out.println(targetTile.getLookText());
-                    } else {
-                        System.out.println("There is something here. Take a look!");
-                    }
+                    System.out.println(targetTile.getLookText());
                 }
                 return true;
             } else {
