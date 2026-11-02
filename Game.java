@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.util.Currency;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,8 +17,13 @@ public class Game {
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
     private static ActionScreen actionScreen;
+<<<<<<< HEAD
 
 
+=======
+    public static Floor currentFloor;
+    
+>>>>>>> 98adc942ffcf2ae5e642014ed091e8cecd55410f
     public static void main(String[] args) {
         
         mainGame = new Thread(() -> {
@@ -48,6 +54,7 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
+<<<<<<< HEAD
 
         // for(String  s:demoFloor.listTiles()){
         //     System.out.println(s); }
@@ -60,6 +67,11 @@ public class Game {
 
 
         System.out.println(demoFloor.searchForTile(0,0).look(playerX, playerX,0, demoFloor));
+=======
+        currentFloor = demoFloor; 
+      
+        for(int i =0; i<4;i++){System.out.println(currentFloor.searchForTile(0,0).look(playerX, playerY, i, currentFloor));}
+>>>>>>> 98adc942ffcf2ae5e642014ed091e8cecd55410f
         Scanner playerInputScanner = new Scanner(System.in);
 
         String playerInput = "";
@@ -70,7 +82,7 @@ public class Game {
         Tick masterTimer = new Tick(10, true, mainGame);
       
         while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
-            Tile selectedTile = demoFloor.searchForTile(playerX, playerY);
+            Tile selectedTile = currentFloor.searchForTile(playerX, playerY);
 
         //     if (newTile) {
         //         newTile = false;
@@ -90,6 +102,7 @@ public class Game {
                 }
 
                 if (true) {
+<<<<<<< HEAD
                     if (look(selectedTile, x, y, "N", demoFloor, false, false, false)) {
                         System.out.print("North: ");
                         look(selectedTile, x, y, "N", demoFloor, false, true, false);
@@ -102,6 +115,21 @@ public class Game {
                     } if (look(selectedTile, x, y, "E", demoFloor, false, false, false)) {
                         System.out.print("East: ");
                         look(selectedTile, x, y, "E", demoFloor, false, true, false);
+=======
+                    Tile lookTile = currentFloor.searchForTile(playerX,playerY);
+                    if (lookTile.getWalls()[0].getSolid()) {
+                        System.out.print("North: ");
+                        lookTile.look(playerX, playerY, 0, currentFloor);
+                    } if (lookTile.getWalls()[2].getSolid()) {
+                        System.out.print("South: ");
+                        lookTile.look(playerX, playerY, 2, currentFloor);
+                    } if (lookTile.getWalls()[3].getSolid()) {
+                        System.out.print("West: ");
+                        lookTile.look(playerX, playerY, 3, currentFloor);
+                    } if (lookTile.getWalls()[1].getSolid()) {
+                        System.out.print("East: ");
+                       lookTile.look(playerX, playerY, 1, currentFloor);
+>>>>>>> 98adc942ffcf2ae5e642014ed091e8cecd55410f
                     }
                 }
                 if (x == 0 && y == -3) {
@@ -129,6 +157,7 @@ public class Game {
                 }
             } else if (playerInput.length() == 2) {
                 if (playerInput.equals("LN")) {
+<<<<<<< HEAD
                     look(selectedTile, x, y, "N", demoFloor, hasTorch, true, true);
                 } else if (playerInput.equals("LS")) {
                     look(selectedTile, x, y, "S", demoFloor, hasTorch, true, true);
@@ -136,6 +165,15 @@ public class Game {
                     look(selectedTile, x, y, "W", demoFloor, hasTorch, true, true);
                 } else if (playerInput.equals("LE")) {
                     look(selectedTile, x, y, "E", demoFloor, hasTorch, true, true);
+=======
+                    System.out.println(selectedTile.look(playerX, playerY, 0, currentFloor));
+                } else if (playerInput.equals("LS")) {
+                    System.out.println(selectedTile.look(playerX, playerY, 2, currentFloor));
+                } else if (playerInput.equals("LW")) {
+                   System.out.println(selectedTile.look(playerX, playerY, 3, currentFloor));
+                } else if (playerInput.equals("LE")) {
+                    System.out.println(selectedTile.look(playerX, playerY, 1, currentFloor));
+>>>>>>> 98adc942ffcf2ae5e642014ed091e8cecd55410f
                 } else {
                     wallToCheck = -1;
                 }
@@ -320,17 +358,33 @@ public class Game {
                     actionScreen.lookCompass();
                     break;
                 case "north":
+
                 case "east":
+
                 case "west":
+
                 case "south":
                 case "up":
                 case "ahead":
-                case "left":
-                case "current":
-                case "right":
-                case "behind":
                     actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 0, currentFloor));
+                        break;
+                case "left":
+                    actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 2, currentFloor));
+                     break;
+                case "current":
+                    actionScreen.reset();
+                    currentFloor.searchForTile(playerX, playerX).getLookText();
                     break;
+                case "right":
+                    actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 1, currentFloor));
+                     break;
+                case "behind":
+                     actionScreen.reset();
+                     actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY,3, currentFloor));
+                     break;
                 default: 
                     break;
             }
