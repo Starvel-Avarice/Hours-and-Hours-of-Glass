@@ -5,6 +5,11 @@ import java.util.TimerTask;
 
 
 public class Game {
+    public static int time = 1000;
+    public static int torchTime = 100;
+    public static int playerX = 0;
+    public static int playerY= 0;
+
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
     private static ActionScreen actionScreen;
@@ -59,11 +64,10 @@ public class Game {
         System.out.println("WELCOME TO THE DEMO!");
         System.out.print("Enter your player name: ");
         playerInput = playerInputScanner.nextLine();   // read text input
-
         Tick masterTimer = new Tick(10, true, mainGame);
-
+      
         while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
-            Tile selectedTile = searchForTile(x, y, floor1);
+            Tile selectedTile = demoFloor.searchForTile(playerX, playerY);
 
             System.out.print("Time left: ");
             System.out.println(String.valueOf(masterTimer.getTime()));
@@ -72,7 +76,7 @@ public class Game {
                 newTile = false;
 
                 System.out.println();
-                System.out.println("Current coordinates: (" + Integer.toString(x) + ", " + Integer.toString(y) + ")");
+                System.out.println("Current coordinates: (" + Integer.toString(playerX) + ", " + Integer.toString(playerY) + ")");
 
                 System.out.println();
 
@@ -85,21 +89,22 @@ public class Game {
                 }
 
                 if (true) {
-                    if (look(selectedTile, x, y, "N", demoFloor, false, false, false)) {
+                    Tile lookTile = demoFloor.searchForTile(playerX,playerY);
+                    if (lookTile.getWalls()[0].getSolid()) {
                         System.out.print("North: ");
-                        look(selectedTile, x, y, "N", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "S", demoFloor, false, false, false)) {
+                        lookTile.look(playerX, playerY, 0, demoFloor);
+                    } if (lookTile.getWalls()[2].getSolid()) {
                         System.out.print("South: ");
-                        look(selectedTile, x, y, "S", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "W", demoFloor, false, false, false)) {
+                        lookTile.look(playerX, playerY, 2, demoFloor);
+                    } if (lookTile.getWalls()[3].getSolid()) {
                         System.out.print("West: ");
-                        look(selectedTile, x, y, "W", demoFloor, false, true, false);
-                    } if (look(selectedTile, x, y, "E", demoFloor, false, false, false)) {
+                        lookTile.look(playerX, playerY, 3, demoFloor);
+                    } if (lookTile.getWalls()[1].getSolid()) {
                         System.out.print("East: ");
-                        look(selectedTile, x, y, "E", demoFloor, false, true, false);
+                       lookTile.look(playerX, playerY, 1, demoFloor);
                     }
                 }
-                if (x == 0 && y == -3) {
+                if (playerX == 0 && playerY == -3) {
                     System.out.println("Light acquired!");
                     hasTorch = true;
                 }
@@ -111,6 +116,7 @@ public class Game {
             
             int wallToCheck = -1;
             if (playerInput.length() == 1) {
+              
                 if (playerInput.equals("N")) {
                     wallToCheck = 0;
                 } else if (playerInput.equals("S")) {
@@ -124,28 +130,29 @@ public class Game {
                 }
             } else if (playerInput.length() == 2) {
                 if (playerInput.equals("LN")) {
-                    look(selectedTile, x, y, "N", demoFloor, hasTorch, true, true);
+                    System.out.println(selectedTile.look(playerX, playerY, 0, demoFloor));
                 } else if (playerInput.equals("LS")) {
-                    look(selectedTile, x, y, "S", demoFloor, hasTorch, true, true);
+                    System.out.println(selectedTile.look(playerX, playerY, 2, demoFloor));
                 } else if (playerInput.equals("LW")) {
-                    look(selectedTile, x, y, "W", demoFloor, hasTorch, true, true);
+                   System.out.println(selectedTile.look(playerX, playerY, 3, demoFloor));
                 } else if (playerInput.equals("LE")) {
-                    look(selectedTile, x, y, "E", demoFloor, hasTorch, true, true);
+                    System.out.println(selectedTile.look(playerX, playerY, 1, demoFloor));
                 } else {
                     wallToCheck = -1;
                 }
             }
+          
             if (wallToCheck != -1) {
                 if (!selectedTile.getWall(wallToCheck).getSolid()) {
                     newTile = true;
                     if (wallToCheck == 0) {
-                        y++;
+                        playerY++;
                     } else if (wallToCheck == 1) {
-                        y--;
+                        playerY--;
                     } else if (wallToCheck == 2) {
-                        x--;
+                        playerX--;
                     } else if (wallToCheck == 3) {
-                        x++;
+                        playerX++;
                     }
                 } else {
                     System.out.println("There is a wall here.");
@@ -155,71 +162,6 @@ public class Game {
         playerInputScanner.close(); 
         System.out.println("TIME OUT!");
         System.exit(0);
-    }
-
-    public static Tile searchForTile(int x, int y, Floor myFloor) {
-        for (Tile myTile : myFloor.getTiles()) {
-            int[] coords = myTile.getCoords();
-            if (coords[0] == x && coords[1] == y) {
-                return myTile;
-            }
-        }
-        return new Tile();
-    }
-
-    public static boolean look(Tile myTile, int x, int y, String dir, Floor myFloor, boolean hasTorch, boolean printOrNot, boolean detailed) {
-        Wall[] myWalls = myTile.getWalls();
-        int wallToCheck = -1;
-
-        int lookX = x;
-        int lookY = y;
-
-        if (dir.equals("N")) {
-            wallToCheck = 0;
-            lookY++;
-        } else if (dir.equals("S")) {
-            wallToCheck = 1;
-            lookY--;
-        } else if (dir.equals("W")) {
-            wallToCheck = 2;
-            lookX--;
-        } else if (dir.equals("E")) {
-            wallToCheck = 3;
-            lookX++;
-        } else {
-            wallToCheck = -1;
-        }
-
-        Tile targetTile = searchForTile(lookX, lookY, myFloor);
-        if (!myWalls[wallToCheck].getSolid()) {
-            if (hasTorch || !targetTile.isDark()) {
-                if (printOrNot) {
-                    if (detailed) {
-                        System.out.println(targetTile.getLookText());
-                    } else {
-                        System.out.println("There is something here. Take a look!");
-                    }
-                }
-                return true;
-            } else {
-                if (myTile.isDark()) {
-                    if (printOrNot) {
-                        System.out.println("Too dark to see...");
-                    }
-                    return false;
-                } else {
-                    if (printOrNot) {
-                        System.out.println("There is something here, but it is too dark to see what it is...");
-                    }
-                    return true;
-                }
-            }
-        } else {
-            if (printOrNot) {
-                System.out.println("Too dark to see...");
-            }
-            return false;
-        }
     }
 
     public class EventHandler implements ActionListener {
@@ -258,6 +200,5 @@ public class Game {
             }
         }
     }
-
 
 }
