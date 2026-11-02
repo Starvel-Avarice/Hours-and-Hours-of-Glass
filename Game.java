@@ -1,4 +1,5 @@
 import java.awt.event.*;
+import java.util.Currency;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,6 +14,7 @@ public class Game {
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
     private static ActionScreen actionScreen;
+    public static Floor currentFloor;
     
     public static void main(String[] args) {
         
@@ -44,8 +46,9 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
+        currentFloor = demoFloor; 
       
-        for(int i =0; i<4;i++){System.out.println(demoFloor.searchForTile(0,0).look(playerX, playerY, i, demoFloor));}
+        for(int i =0; i<4;i++){System.out.println(currentFloor.searchForTile(0,0).look(playerX, playerY, i, currentFloor));}
         Scanner playerInputScanner = new Scanner(System.in);
 
         String playerInput = "";
@@ -56,7 +59,7 @@ public class Game {
         Tick masterTimer = new Tick(10, true, mainGame);
       
         while (!playerInput.equals("QUIT") & masterTimer.getTime() != 0) {
-            Tile selectedTile = demoFloor.searchForTile(playerX, playerY);
+            Tile selectedTile = currentFloor.searchForTile(playerX, playerY);
 
             System.out.print("Time left: ");
             System.out.println(String.valueOf(masterTimer.getTime()));
@@ -78,19 +81,19 @@ public class Game {
                 }
 
                 if (true) {
-                    Tile lookTile = demoFloor.searchForTile(playerX,playerY);
+                    Tile lookTile = currentFloor.searchForTile(playerX,playerY);
                     if (lookTile.getWalls()[0].getSolid()) {
                         System.out.print("North: ");
-                        lookTile.look(playerX, playerY, 0, demoFloor);
+                        lookTile.look(playerX, playerY, 0, currentFloor);
                     } if (lookTile.getWalls()[2].getSolid()) {
                         System.out.print("South: ");
-                        lookTile.look(playerX, playerY, 2, demoFloor);
+                        lookTile.look(playerX, playerY, 2, currentFloor);
                     } if (lookTile.getWalls()[3].getSolid()) {
                         System.out.print("West: ");
-                        lookTile.look(playerX, playerY, 3, demoFloor);
+                        lookTile.look(playerX, playerY, 3, currentFloor);
                     } if (lookTile.getWalls()[1].getSolid()) {
                         System.out.print("East: ");
-                       lookTile.look(playerX, playerY, 1, demoFloor);
+                       lookTile.look(playerX, playerY, 1, currentFloor);
                     }
                 }
                 if (playerX == 0 && playerY == -3) {
@@ -119,13 +122,13 @@ public class Game {
                 }
             } else if (playerInput.length() == 2) {
                 if (playerInput.equals("LN")) {
-                    System.out.println(selectedTile.look(playerX, playerY, 0, demoFloor));
+                    System.out.println(selectedTile.look(playerX, playerY, 0, currentFloor));
                 } else if (playerInput.equals("LS")) {
-                    System.out.println(selectedTile.look(playerX, playerY, 2, demoFloor));
+                    System.out.println(selectedTile.look(playerX, playerY, 2, currentFloor));
                 } else if (playerInput.equals("LW")) {
-                   System.out.println(selectedTile.look(playerX, playerY, 3, demoFloor));
+                   System.out.println(selectedTile.look(playerX, playerY, 3, currentFloor));
                 } else if (playerInput.equals("LE")) {
-                    System.out.println(selectedTile.look(playerX, playerY, 1, demoFloor));
+                    System.out.println(selectedTile.look(playerX, playerY, 1, currentFloor));
                 } else {
                     wallToCheck = -1;
                 }
@@ -173,17 +176,33 @@ public class Game {
                     actionScreen.lookCompass();
                     break;
                 case "north":
+
                 case "east":
+
                 case "west":
+
                 case "south":
                 case "up":
                 case "ahead":
-                case "left":
-                case "current":
-                case "right":
-                case "behind":
                     actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 0, currentFloor));
+                        break;
+                case "left":
+                    actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 2, currentFloor));
+                     break;
+                case "current":
+                    actionScreen.reset();
+                    currentFloor.searchForTile(playerX, playerX).getLookText();
                     break;
+                case "right":
+                    actionScreen.reset();
+                    actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 1, currentFloor));
+                     break;
+                case "behind":
+                     actionScreen.reset();
+                     actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY,3, currentFloor));
+                     break;
                 default: 
                     break;
             }
