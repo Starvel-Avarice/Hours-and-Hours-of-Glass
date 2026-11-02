@@ -46,7 +46,8 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
-        currentFloor = demoFloor; 
+        Floor floor1 = new Floor("floor1_1.txt");
+        currentFloor = floor1; 
       
         // for(int i =0; i<4;i++){System.out.println(currentFloor.searchForTile(0,0).look(playerX, playerY, i, currentFloor));}
         Scanner playerInputScanner = new Scanner(System.in);

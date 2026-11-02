@@ -50,7 +50,10 @@ public class Item {
                 Game.torchTime = 10000;
                 break;
             case 2: 
-                if (Game.currentFloor == )
+                if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
+                    Tile theTile = Game.currentFloor.searchForTile(1, 2);
+                    Wall theWall = theTile.getWall(knownId)
+                }
             
             default:
                 System.out.println("Does nothing");
