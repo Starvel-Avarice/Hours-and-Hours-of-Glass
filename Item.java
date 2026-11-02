@@ -50,6 +50,7 @@ public class Item {
                 Game.torchTime = 10000;
                 break;
             case 2: 
+                if (Game.currentFloor == )
             
             default:
                 System.out.println("Does nothing");
