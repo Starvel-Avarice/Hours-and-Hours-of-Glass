@@ -51,6 +51,9 @@ public class Tile {
         return fullText;
     }
 
+    public int getLadder(){
+        return ladder;
+    }
     public Item takeItem(String itemName){
         for(int i=0; i<items.size(); i++){
             System.out.println(items.get(i).getName());
@@ -65,7 +68,7 @@ public class Tile {
 
     public Boolean[] solidWalls(){
         Boolean[] solids = new Boolean[4];
-        int i =0;
+        int i=0;
         for(Wall w:this.getWalls()){
             solids[i]=w.getSolid();
             i++;
@@ -75,19 +78,20 @@ public class Tile {
 
     public String look(int x, int y, int dir, Floor fl) {
         Wall[] myWalls = this.getWalls();
-        int wallToCheck = -1;
-
+        if(myWalls==null){return "Its so over";}
         int lookX = x;
         int lookY = y;
 
         if (dir==0) {
-            wallToCheck = 0;
             lookY++;
         } else if (dir==2) {
             wallToCheck = 1;
             lookY--;
         } else if (dir==3) {
-            wallToCheck = 2;
+            lookX++;
+        } else if (dir==1) {
+            lookY--;
+        } else if (dir==2) {
             lookX--;
         } else if (dir==2) {
             wallToCheck = 3;
