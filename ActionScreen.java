@@ -37,6 +37,7 @@ public class ActionScreen {
     Game.EventHandler compassHandler = game.new EventHandler();
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
+    private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
 
     public ActionScreen(Container con){
         grabber=con;
@@ -54,7 +55,7 @@ public class ActionScreen {
         infoText = new JTextArea();
         infoText.setBounds(screenSize.width/2-690,screenSize.height/2-425,570,270);
         infoText.setForeground(Color.decode("#4a4540"));
-        infoText.setFont(normalFont);
+        infoText.setFont(mainBoxFont);
         infoText.setEditable(false);
         infoText.setFocusable(false);
         infoText.setLineWrap(true);
@@ -247,7 +248,7 @@ public class ActionScreen {
         lookCompassGrid.setVisible(true);
         lookCompassGrid.add(new JLabel());
 
-        north = new JButton("Ahead");
+        north = new JButton("North");
         north.setBackground(Color.decode("#efb787"));
         north.setForeground(Color.decode("#4a4540"));
         north.setFont(normalFont);
@@ -259,7 +260,7 @@ public class ActionScreen {
         lookCompassGrid.add(north);
         lookCompassGrid.add(new JLabel());
 
-        west = new JButton("Left");
+        west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
         west.setForeground(Color.decode("#4a4540"));
         west.setFont(normalFont);
@@ -279,7 +280,7 @@ public class ActionScreen {
 
         lookCompassGrid.add(upDown);
 
-        east = new JButton("Right");
+        east = new JButton("East");
         east.setBackground(Color.decode("#efb787"));
         east.setForeground(Color.decode("#4a4540"));
         east.setFont(normalFont);
@@ -290,7 +291,7 @@ public class ActionScreen {
         lookCompassGrid.add(east);
         lookCompassGrid.add(new JLabel());
 
-        south = new JButton("Behind");
+        south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
         south.setForeground(Color.decode("#4a4540"));
         south.setFont(normalFont);
@@ -338,6 +339,7 @@ public class ActionScreen {
         backButton();
         grabber.add(intList,0);
     }
+    
     public void backButton(){
         back = new JButton("Back");
         back.setBackground(Color.decode("#efb787"));

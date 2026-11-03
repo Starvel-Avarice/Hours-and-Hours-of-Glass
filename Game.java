@@ -212,7 +212,6 @@ public class Game {
                 case "back":
                     actionScreen.reset();
                     break;
-
                 default: 
                     break;
             }
