@@ -37,6 +37,11 @@ public class ActionScreen {
     private JButton west;
     private JButton upDown;
 
+    private JPanel invList;
+    private JPanel intList;
+    private JButton back;
+
+    
     private JTextField enterTextField;
     private JTextArea enterTextArea;
 
@@ -47,6 +52,7 @@ public class ActionScreen {
 
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
+    private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
 
     public ActionScreen(Container con){
         grabber=con;
@@ -64,13 +70,13 @@ public class ActionScreen {
         infoText = new JTextArea();
         infoText.setBounds(screenSize.width/2-690,screenSize.height/2-425,570,270);
         infoText.setForeground(Color.decode("#4a4540"));
-        infoText.setFont(normalFont);
+        infoText.setFont(mainBoxFont);
         infoText.setEditable(false);
         infoText.setFocusable(false);
         infoText.setLineWrap(true);
         infoText.setWrapStyleWord(true);
         infoText.setOpaque(false);
-
+ 
         infoPanel.add(infoText);
         grabber.add(infoPanel,1);
 
@@ -202,10 +208,11 @@ public class ActionScreen {
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
+
         updateInfo("What direction do you want to go?");
 
         dirCompassGrid = new JPanel();
-        dirCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        dirCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
         dirCompassGrid.setBackground(Color.decode("#f6d7b0"));
         dirCompassGrid.setLayout(new GridLayout(3,3));
         dirCompassGrid.setVisible(true);
@@ -218,10 +225,13 @@ public class ActionScreen {
         north.addActionListener(compassHandler);
         north.setFocusPainted(false);
         north.setActionCommand("north");
-
+        // if(solids[0]){
+        //     north.setVisible(false);
+        // } else {north.setVisible(true);}       
 
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
+
 
         west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
@@ -230,8 +240,12 @@ public class ActionScreen {
         west.addActionListener(compassHandler);
         west.setFocusPainted(false);
         west.setActionCommand("west");
+        // if(solids[3]){
+        //     west.setVisible(false);
+        // } else {west.setVisible(true);}
 
         dirCompassGrid.add(west);
+
 
         upDown = new JButton("Up");
         upDown.setBackground(Color.decode("#efb787"));
@@ -240,7 +254,7 @@ public class ActionScreen {
         upDown.addActionListener(compassHandler);
         upDown.setFocusPainted(false);
         upDown.setVisible(false);
-        upDown.setActionCommand("up");
+      upDown.setActionCommand("up");
 
         dirCompassGrid.add(upDown);
 
@@ -251,9 +265,13 @@ public class ActionScreen {
         east.addActionListener(compassHandler);
         east.setFocusPainted(false);
         east.setActionCommand("east");
+        // if(solids[1]){
+        //     east.setVisible(false);
+        // } else {east.setVisible(true);}       
 
         dirCompassGrid.add(east);
         dirCompassGrid.add(new JLabel());
+
 
         south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
@@ -262,12 +280,15 @@ public class ActionScreen {
         south.addActionListener(compassHandler);
         south.setFocusPainted(false);
         south.setActionCommand("south");
+        // if(solids[2]){
+        //     south.setVisible(false);
+        // } else {south.setVisible(true);}      
 
         dirCompassGrid.add(south);
         dirCompassGrid.add(new JLabel());
-        
+ 
+        backButton();
         grabber.add(dirCompassGrid,0);
-
         
 
         
@@ -277,16 +298,17 @@ public class ActionScreen {
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
+
         updateInfo("Where do you want to look?");
 
         lookCompassGrid = new JPanel();
-        lookCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        lookCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
         lookCompassGrid.setBackground(Color.decode("#f6d7b0"));
         lookCompassGrid.setLayout(new GridLayout(3,3));
         lookCompassGrid.setVisible(true);
         lookCompassGrid.add(new JLabel());
 
-        north = new JButton("Ahead");
+        north = new JButton("North");
         north.setBackground(Color.decode("#efb787"));
         north.setForeground(Color.decode("#4a4540"));
         north.setFont(normalFont);
@@ -298,7 +320,7 @@ public class ActionScreen {
         lookCompassGrid.add(north);
         lookCompassGrid.add(new JLabel());
 
-        west = new JButton("Left");
+        west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
         west.setForeground(Color.decode("#4a4540"));
         west.setFont(normalFont);
@@ -318,7 +340,7 @@ public class ActionScreen {
 
         lookCompassGrid.add(upDown);
 
-        east = new JButton("Right");
+        east = new JButton("East");
         east.setBackground(Color.decode("#efb787"));
         east.setForeground(Color.decode("#4a4540"));
         east.setFont(normalFont);
@@ -329,7 +351,7 @@ public class ActionScreen {
         lookCompassGrid.add(east);
         lookCompassGrid.add(new JLabel());
 
-        south = new JButton("Behind");
+        south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
         south.setForeground(Color.decode("#4a4540"));
         south.setFont(normalFont);
@@ -340,19 +362,84 @@ public class ActionScreen {
         lookCompassGrid.add(south);
         lookCompassGrid.add(new JLabel());
         
+        backButton();
         grabber.add(lookCompassGrid,0);
     }
 
+    public void inventory(){
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        interPanel.setVisible(false);
+        
+        invList = new JPanel();
+        invList.setBounds(screenSize.width/2-285,screenSize.height/2-120,570,205);
+        invList.setLayout(new GridLayout(2,5));
+        invList.setBackground(Color.decode("#efb787"));
+        updateInfo("Select an item to use");
+        invList.setVisible(true);
+
+        backButton();
+        grabber.add(invList,0);
+
+
+    }
+
+    public void interact(){
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        interPanel.setVisible(false);
+
+        updateInfo("");
+        intList= new JPanel();
+        intList.setBounds(screenSize.width/2-285,screenSize.height/2-185,190,270);
+        intList.setLayout(new GridLayout(4,1));
+        intList.setBackground(Color.decode("#efb787"));
+        intList.setVisible(true);
+
+        backButton();
+        grabber.add(intList,0);
+    }
+    
+    public void backButton(){
+        back = new JButton("Back");
+        back.setBackground(Color.decode("#efb787"));
+        back.setForeground(Color.decode("#4a4540"));
+        back.setFont(normalFont);
+        back.addActionListener(choiceHandler);
+        back.setFocusPainted(false);
+        back.setActionCommand("back");
+
+        inventoryButton.setVisible(false);
+        inventoryPanel.add(back);
+    }
+    
     public void reset(){
         if (dirCompassGrid != null) {
             dirCompassGrid.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
         }
         if (lookCompassGrid != null) {
             lookCompassGrid.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
         }
+        if (invList!=null){
+            invList.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
+        }
+        if (intList!=null){
+            intList.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
+        }
+        inventoryPanel.setVisible(true);
         lookPanel.setVisible(true);
         movePanel.setVisible(true);
         interPanel.setVisible(true);
+        
+        
         updateInfo("This is the main menu");
     }
 
