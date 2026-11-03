@@ -34,7 +34,7 @@ public class Item {
         itemHash.put(1, new Item("Torch", "Lights up the way", "TorchUse", 1, true));
         itemHash.put(2, new Item("Blue Key", "A key to a door.", "KeyUse", 2, true));
         itemHash.put(4, new Item("The Ring", "Grants passageway to the Hinge.", "RingUse", 4, true));
-        itemHash.put(5, new Item("The Pink Puzzle", "The Pink Puzzle", "PinkPuzzleUse", 5, true));
+        itemHash.put(5, new Item("The Pink Puzzle", "The Pink Puzzle", "PinkPuzzleUse", 5, false));
         itemHash.put(666, new Item("Death", "Kills the player", "InstantDeath", 666, false));
         itemHash.put(1000, new Item("Glass Shard Holder", "Stores glass shards (back-end)", "ShardHolderUse", 1000, false));
         itemHash.put(3000, new Item("Goblin", "Combat with the goblin.", "Goblin", 3000, false));
@@ -50,6 +50,11 @@ public class Item {
                 Game.torchTime = 10000;
                 break;
             case 2: 
+                if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
+                    Tile theTile = Game.currentFloor.searchForTile(1, 2);
+                    theTile.getWalls()[1].setSolid(true);
+                }
+            case 5:
                 if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
                     Tile theTile = Game.currentFloor.searchForTile(1, 2);
                     theTile.getWalls()[1].setSolid(true);

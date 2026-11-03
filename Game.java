@@ -172,6 +172,7 @@ public class Game {
                     break;
                 case "goMove":
                     actionScreen.dirCompass();
+                    actionScreen.textboxPanel(true);
                     break;
                 case "goLook":
                     actionScreen.lookCompass();
