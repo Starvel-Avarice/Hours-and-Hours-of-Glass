@@ -52,7 +52,7 @@ public class Item {
             case 2: 
                 if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
                     Tile theTile = Game.currentFloor.searchForTile(1, 2);
-                    Wall theWall = theTile.getWall(knownId)
+                    theTile.getWalls()[1].setSolid(true);
                 }
             
             default:

@@ -86,7 +86,7 @@ public class Floor {
         for (Tile myTile : this.getTiles()) {
             int[] coords = myTile.getCoords();
             if (coords[0] == x && coords[1] == y) {
-                return myTile.getWalls[1].setSolid();
+                return myTile;
             }
         }
         return new Tile();
