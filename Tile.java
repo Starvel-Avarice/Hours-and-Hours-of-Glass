@@ -85,7 +85,6 @@ public class Tile {
         if (dir==0) {
             lookY++;
         } else if (dir==2) {
-            wallToCheck = 1;
             lookY--;
         } else if (dir==3) {
             lookX++;
@@ -94,10 +93,7 @@ public class Tile {
         } else if (dir==2) {
             lookX--;
         } else if (dir==2) {
-            wallToCheck = 3;
             lookX++;
-        } else {
-            wallToCheck = -1;
         }
 
         Tile targetTile = fl.searchForTile(lookX, lookY) ;
