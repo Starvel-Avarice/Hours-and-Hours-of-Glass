@@ -61,7 +61,7 @@ public class ActionScreen {
         infoText.setLineWrap(true);
         infoText.setWrapStyleWord(true);
         infoText.setOpaque(false);
-
+ 
         infoPanel.add(infoText);
         grabber.add(infoPanel,0);
 
