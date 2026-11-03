@@ -30,6 +30,10 @@ public class Wall {
     public void invertSolid(){
       this.solid=!solid;
     }
+
+    public void setSolid(boolean solid) {
+      this.solid = solid;
+    }
     
     public String getInspect(){
       return inspect;

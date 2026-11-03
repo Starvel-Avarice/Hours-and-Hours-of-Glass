@@ -1,16 +1,27 @@
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+
 import java.awt.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActionScreen {
     private JPanel infoPanel;
     private JTextArea infoText;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Container grabber;
- 
+    private Timer timer;
+    private TimerTask timerTask;
+
+    private String textPanelString = "";
+
     private JPanel inventoryPanel;
     private JPanel lookPanel;
-    private  JPanel movePanel;
+    private JPanel movePanel;
     private JPanel interPanel;
+    private JPanel textboxPanel;
 
     private JButton inventoryButton;
     private JButton lookButton;
@@ -31,10 +42,14 @@ public class ActionScreen {
     private JButton back;
 
     
+    private JTextField enterTextField;
+    private JTextArea enterTextArea;
 
     private Game game = new Game();
     Game.EventHandler choiceHandler = game.new EventHandler();
     Game.EventHandler compassHandler = game.new EventHandler();
+    Game.EventHandler textboxHandler = game.new EventHandler();
+
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
     private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
@@ -63,7 +78,7 @@ public class ActionScreen {
         infoText.setOpaque(false);
  
         infoPanel.add(infoText);
-        grabber.add(infoPanel,0);
+        grabber.add(infoPanel,1);
 
         inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new BorderLayout());
@@ -126,10 +141,53 @@ public class ActionScreen {
         movePanel.add(moveButton);
         interPanel.add(interButton);
 
-        grabber.add(inventoryPanel,0);
-        grabber.add(lookPanel,0);
-        grabber.add(movePanel,0);
-        grabber.add(interPanel,0);
+        textboxPanel = new JPanel();
+        textboxPanel.setLayout(new BorderLayout());
+        textboxPanel.setBounds(screenSize.width/2-250, screenSize.height/2-150, 500, 200);
+        textboxPanel.setBackground(Color.decode("#efb787"));
+        textboxPanel.setVisible(false);
+
+        enterTextField = new JTextField();
+        enterTextField.addActionListener(textboxHandler);
+        enterTextField.setFont(normalFont);
+        enterTextField.setHorizontalAlignment(JTextField.CENTER);
+        enterTextField.setEditable(true);
+
+        textboxPanel.add(enterTextField);
+
+        grabber.add(inventoryPanel,1);
+        grabber.add(lookPanel,1);
+        grabber.add(movePanel,1);
+        grabber.add(interPanel,1);
+        grabber.add(textboxPanel,0);
+
+        enterTextField.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+        });
     }
     
     public void openMainScreen(){
@@ -196,7 +254,7 @@ public class ActionScreen {
         upDown.addActionListener(compassHandler);
         upDown.setFocusPainted(false);
         upDown.setVisible(false);
-        upDown.setActionCommand("up");
+      upDown.setActionCommand("up");
 
         dirCompassGrid.add(upDown);
 
@@ -231,6 +289,8 @@ public class ActionScreen {
  
         backButton();
         grabber.add(dirCompassGrid,0);
+        
+
         
     }
     
@@ -381,5 +441,20 @@ public class ActionScreen {
         
         
         updateInfo("This is the main menu");
+    }
+
+    public void textboxPanel(boolean toggle) {
+        if (toggle) {
+            textboxPanel.setVisible(true);
+        } else {
+            enterTextField.setBackground(Color.GREEN);
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                public void run() {
+                    textboxPanel.setVisible(false);
+                };
+            };
+            timer.schedule(timerTask, 2000);
+        }
     }
 }

@@ -8,8 +8,8 @@ import java.util.TimerTask;
 public class Game {
     public static int time = 1000;
     public static int torchTime = 100;
-    public static int playerX = 0;
-    public static int playerY= 0;
+    public static int playerX = -1;
+    public static int playerY = -3;
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
@@ -29,7 +29,7 @@ public class Game {
                 // System.out.println("Thread interrupted.");
 
                 // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
-                System.out.println("The Turning has taken place. Game over!");
+                System.out.println("Game over!");
                 System.exit(0);
             }
         });
@@ -46,9 +46,10 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
-        currentFloor = demoFloor; 
+        Floor floor1 = new Floor("floor1_1.txt");
+        currentFloor = floor1; 
       
-        for(int i =0; i<4;i++){System.out.println(currentFloor.searchForTile(0,0).look(playerX, playerY, i, currentFloor));}
+        // for(int i =0; i<4;i++){System.out.println(currentFloor.searchForTile(0,0).look(playerX, playerY, i, currentFloor));}
         Scanner playerInputScanner = new Scanner(System.in);
 
         String playerInput = "";
@@ -171,6 +172,7 @@ public class Game {
                     break;
                 case "goMove":
                     actionScreen.dirCompass();
+                    actionScreen.textboxPanel(true);
                     break;
                 case "goLook":
                     actionScreen.lookCompass();
