@@ -30,8 +30,6 @@ public class ActionScreen {
     private JPanel intList;
     private JButton back;
 
-    
-
     private Game game = new Game();
     Game.EventHandler choiceHandler = game.new EventHandler();
     Game.EventHandler compassHandler = game.new EventHandler();
