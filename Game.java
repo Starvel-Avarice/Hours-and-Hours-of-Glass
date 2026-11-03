@@ -30,7 +30,7 @@ public class Game {
                 // System.out.println("Thread interrupted.");
 
                 // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
-                System.out.println("The Turning has taken place. Game over!");
+                System.out.println("Game over!");
                 System.exit(0);
             }
         });
@@ -46,7 +46,8 @@ public class Game {
         Wall.genWallHash();
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
-        currentFloor = demoFloor; 
+        Floor floor1 = new Floor("floor1_1.txt");
+        currentFloor = floor1; 
       
         Tick masterTimer = new Tick(45, true, mainGame);
     }
@@ -71,6 +72,7 @@ public class Game {
                     break;
                 case "goMove":
                     actionScreen.dirCompass();
+                    actionScreen.textboxPanel(true);
                     break;
                 case "goLook":
                     actionScreen.lookCompass();

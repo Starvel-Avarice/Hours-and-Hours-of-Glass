@@ -1,16 +1,27 @@
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+
 import java.awt.*;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ActionScreen {
     private JPanel infoPanel;
     private JTextArea infoText;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Container grabber;
+    private Timer timer;
+    private TimerTask timerTask;
+
+    private String textPanelString = "";
 
     private JPanel inventoryPanel;
     private JPanel lookPanel;
-    private  JPanel movePanel;
+    private JPanel movePanel;
     private JPanel interPanel;
+    private JPanel textboxPanel;
 
     private JButton inventoryButton;
     private JButton lookButton;
@@ -26,12 +37,22 @@ public class ActionScreen {
     private JButton west;
     private JButton upDown;
 
+    private JPanel invList;
+    private JPanel intList;
+    private JButton back;
+
+    
+    private JTextField enterTextField;
+    private JTextArea enterTextArea;
+
     private Game game = new Game();
     Game.EventHandler choiceHandler = game.new EventHandler();
     Game.EventHandler compassHandler = game.new EventHandler();
+    Game.EventHandler textboxHandler = game.new EventHandler();
 
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
+    private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
 
     public ActionScreen(Container con){
         grabber=con;
@@ -49,15 +70,15 @@ public class ActionScreen {
         infoText = new JTextArea();
         infoText.setBounds(screenSize.width/2-690,screenSize.height/2-425,570,270);
         infoText.setForeground(Color.decode("#4a4540"));
-        infoText.setFont(normalFont);
+        infoText.setFont(mainBoxFont);
         infoText.setEditable(false);
         infoText.setFocusable(false);
         infoText.setLineWrap(true);
         infoText.setWrapStyleWord(true);
         infoText.setOpaque(false);
-
+ 
         infoPanel.add(infoText);
-        grabber.add(infoPanel,0);
+        grabber.add(infoPanel,1);
 
         inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new BorderLayout());
@@ -120,10 +141,53 @@ public class ActionScreen {
         movePanel.add(moveButton);
         interPanel.add(interButton);
 
-        grabber.add(inventoryPanel,0);
-        grabber.add(lookPanel,0);
-        grabber.add(movePanel,0);
-        grabber.add(interPanel,0);
+        textboxPanel = new JPanel();
+        textboxPanel.setLayout(new BorderLayout());
+        textboxPanel.setBounds(screenSize.width/2-250, screenSize.height/2-150, 500, 200);
+        textboxPanel.setBackground(Color.decode("#efb787"));
+        textboxPanel.setVisible(false);
+
+        enterTextField = new JTextField();
+        enterTextField.addActionListener(textboxHandler);
+        enterTextField.setFont(normalFont);
+        enterTextField.setHorizontalAlignment(JTextField.CENTER);
+        enterTextField.setEditable(true);
+
+        textboxPanel.add(enterTextField);
+
+        grabber.add(inventoryPanel,1);
+        grabber.add(lookPanel,1);
+        grabber.add(movePanel,1);
+        grabber.add(interPanel,1);
+        grabber.add(textboxPanel,0);
+
+        enterTextField.getDocument().addDocumentListener(new DocumentListener(){
+
+            @Override
+            public void changedUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent arg0) {
+                textPanelString = enterTextField.getText();
+                if (textPanelString.equals("12345")) {
+                    textboxPanel(false);
+                }
+            }
+
+        });
     }
     
     public void openMainScreen(){
@@ -152,7 +216,7 @@ public class ActionScreen {
         for(Boolean t:moveOptions){System.out.println(t+"as "+Game.playerX+"-"+Game.playerY);}
 
         dirCompassGrid = new JPanel();
-        dirCompassGrid.setBounds(screenSize.width/2-225,screenSize.height*37/60,450,250);
+        dirCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
         dirCompassGrid.setBackground(Color.decode("#f6d7b0"));
         dirCompassGrid.setLayout(new GridLayout(3,3));
         dirCompassGrid.setVisible(true);
@@ -173,6 +237,7 @@ public class ActionScreen {
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
 
+
         west = new JButton("West");
         west.setBackground(Color.decode("#c8ab92"));
         west.setForeground(Color.decode("#4a4540"));
@@ -184,6 +249,7 @@ public class ActionScreen {
         west.setActionCommand("west");
         }
         dirCompassGrid.add(west);
+
 
         upDown = new JButton("Up");
         upDown.setBackground(Color.decode("#c8ab92"));
@@ -210,6 +276,7 @@ public class ActionScreen {
         dirCompassGrid.add(east);
         dirCompassGrid.add(new JLabel());
 
+
         south = new JButton("South");
         south.setBackground(Color.decode("#c8ab92"));
         south.setForeground(Color.decode("#4a4540"));
@@ -220,11 +287,13 @@ public class ActionScreen {
         south.setActionCommand("south");
         south.setBackground(Color.decode("#efb787"));
         }
-
+      
         dirCompassGrid.add(south);
         dirCompassGrid.add(new JLabel());
+ 
+        backButton();
+        grabber.add(dirCompassGrid,0);        
         
-        grabber.add(dirCompassGrid,0);
     }
     
     public void lookCompass(){
@@ -235,13 +304,13 @@ public class ActionScreen {
         updateInfo("Where do you want to look?");
 
         lookCompassGrid = new JPanel();
-        lookCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        lookCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
         lookCompassGrid.setBackground(Color.decode("#f6d7b0"));
         lookCompassGrid.setLayout(new GridLayout(3,3));
         lookCompassGrid.setVisible(true);
         lookCompassGrid.add(new JLabel());
 
-        north = new JButton("Ahead");
+        north = new JButton("North");
         north.setBackground(Color.decode("#efb787"));
         north.setForeground(Color.decode("#4a4540"));
         north.setFont(normalFont);
@@ -253,7 +322,7 @@ public class ActionScreen {
         lookCompassGrid.add(north);
         lookCompassGrid.add(new JLabel());
 
-        west = new JButton("Left");
+        west = new JButton("West");
         west.setBackground(Color.decode("#efb787"));
         west.setForeground(Color.decode("#4a4540"));
         west.setFont(normalFont);
@@ -273,7 +342,7 @@ public class ActionScreen {
 
         lookCompassGrid.add(upDown);
 
-        east = new JButton("Right");
+        east = new JButton("East");
         east.setBackground(Color.decode("#efb787"));
         east.setForeground(Color.decode("#4a4540"));
         east.setFont(normalFont);
@@ -284,7 +353,7 @@ public class ActionScreen {
         lookCompassGrid.add(east);
         lookCompassGrid.add(new JLabel());
 
-        south = new JButton("Behind");
+        south = new JButton("South");
         south.setBackground(Color.decode("#efb787"));
         south.setForeground(Color.decode("#4a4540"));
         south.setFont(normalFont);
@@ -295,19 +364,99 @@ public class ActionScreen {
         lookCompassGrid.add(south);
         lookCompassGrid.add(new JLabel());
         
+        backButton();
         grabber.add(lookCompassGrid,0);
     }
 
+    public void inventory(){
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        interPanel.setVisible(false);
+        
+        invList = new JPanel();
+        invList.setBounds(screenSize.width/2-285,screenSize.height/2-120,570,205);
+        invList.setLayout(new GridLayout(2,5));
+        invList.setBackground(Color.decode("#efb787"));
+        updateInfo("Select an item to use");
+        invList.setVisible(true);
+
+        backButton();
+        grabber.add(invList,0);
+
+
+    }
+
+    public void interact(){
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        interPanel.setVisible(false);
+
+        updateInfo("");
+        intList= new JPanel();
+        intList.setBounds(screenSize.width/2-285,screenSize.height/2-185,190,270);
+        intList.setLayout(new GridLayout(4,1));
+        intList.setBackground(Color.decode("#efb787"));
+        intList.setVisible(true);
+
+        backButton();
+        grabber.add(intList,0);
+    }
+    
+    public void backButton(){
+        back = new JButton("Back");
+        back.setBackground(Color.decode("#efb787"));
+        back.setForeground(Color.decode("#4a4540"));
+        back.setFont(normalFont);
+        back.addActionListener(choiceHandler);
+        back.setFocusPainted(false);
+        back.setActionCommand("back");
+
+        inventoryButton.setVisible(false);
+        inventoryPanel.add(back);
+    }
+    
     public void reset(){
         if (dirCompassGrid != null) {
             dirCompassGrid.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
         }
         if (lookCompassGrid != null) {
             lookCompassGrid.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
         }
+        if (invList!=null){
+            invList.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
+        }
+        if (intList!=null){
+            intList.setVisible(false);
+            inventoryButton.setVisible(true);
+            back.setVisible(false);
+        }
+        inventoryPanel.setVisible(true);
         lookPanel.setVisible(true);
         movePanel.setVisible(true);
         interPanel.setVisible(true);
+        
+        
         updateInfo("This is the main menu");
+    }
+
+    public void textboxPanel(boolean toggle) {
+        if (toggle) {
+            textboxPanel.setVisible(true);
+        } else {
+            enterTextField.setBackground(Color.GREEN);
+            timer = new Timer();
+            timerTask = new TimerTask() {
+                public void run() {
+                    textboxPanel.setVisible(false);
+                };
+            };
+            timer.schedule(timerTask, 2000);
+        }
     }
 }
