@@ -140,83 +140,98 @@ public class ActionScreen {
         infoText.setText(text);
     }
     
+
+
     public void dirCompass(){
+        Boolean[] moveOptions = Game.currentFloor.searchForTile(Game.playerX, Game.playerY).solidWalls();
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
+        Game.currentScreen ="move";
         updateInfo("What direction do you want to go?");
+        for(Boolean t:moveOptions){System.out.println(t+"as "+Game.playerX+"-"+Game.playerY);}
 
         dirCompassGrid = new JPanel();
-        dirCompassGrid.setBounds(screenSize.width/2-225,555,450,250);
+        dirCompassGrid.setBounds(screenSize.width/2-225,screenSize.height*37/60,450,250);
         dirCompassGrid.setBackground(Color.decode("#f6d7b0"));
         dirCompassGrid.setLayout(new GridLayout(3,3));
         dirCompassGrid.setVisible(true);
         dirCompassGrid.add(new JLabel());
 
         north = new JButton("North");
-        north.setBackground(Color.decode("#efb787"));
+        north.setBackground(Color.decode("#c8ab92"));
         north.setForeground(Color.decode("#4a4540"));
         north.setFont(normalFont);
         north.addActionListener(compassHandler);
         north.setFocusPainted(false);
-        north.setActionCommand("north");
+
+        if(!moveOptions[0]){
+        north.setBackground(Color.decode("#efb787"));
+        north.setActionCommand("north");}
 
 
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
 
         west = new JButton("West");
-        west.setBackground(Color.decode("#efb787"));
+        west.setBackground(Color.decode("#c8ab92"));
         west.setForeground(Color.decode("#4a4540"));
         west.setFont(normalFont);
         west.addActionListener(compassHandler);
         west.setFocusPainted(false);
+        if(!moveOptions[2]){
+        west.setBackground(Color.decode("#efb787"));
         west.setActionCommand("west");
-
+        }
         dirCompassGrid.add(west);
 
         upDown = new JButton("Up");
-        upDown.setBackground(Color.decode("#efb787"));
+        upDown.setBackground(Color.decode("#c8ab92"));
         upDown.setForeground(Color.decode("#4a4540"));
         upDown.setFont(normalFont);
         upDown.addActionListener(compassHandler);
         upDown.setFocusPainted(false);
         upDown.setVisible(false);
+        if(Game.currentFloor.searchForTile(Game.playerX,Game.playerY).getLadder()!=0){
         upDown.setActionCommand("up");
-
+        }
         dirCompassGrid.add(upDown);
 
         east = new JButton("East");
-        east.setBackground(Color.decode("#efb787"));
+        east.setBackground(Color.decode("#c8ab92"));
         east.setForeground(Color.decode("#4a4540"));
         east.setFont(normalFont);
         east.addActionListener(compassHandler);
         east.setFocusPainted(false);
+        if(!moveOptions[3]){
         east.setActionCommand("east");
-
+        east.setBackground(Color.decode("#efb787"));
+        }
         dirCompassGrid.add(east);
         dirCompassGrid.add(new JLabel());
 
         south = new JButton("South");
-        south.setBackground(Color.decode("#efb787"));
+        south.setBackground(Color.decode("#c8ab92"));
         south.setForeground(Color.decode("#4a4540"));
         south.setFont(normalFont);
         south.addActionListener(compassHandler);
         south.setFocusPainted(false);
+        if(!moveOptions[1]){
         south.setActionCommand("south");
+        south.setBackground(Color.decode("#efb787"));
+        }
 
         dirCompassGrid.add(south);
         dirCompassGrid.add(new JLabel());
         
         grabber.add(dirCompassGrid,0);
-
-        
     }
     
     public void lookCompass(){
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
+        Game.currentScreen ="look";
         updateInfo("Where do you want to look?");
 
         lookCompassGrid = new JPanel();
