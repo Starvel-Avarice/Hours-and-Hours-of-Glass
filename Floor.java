@@ -52,7 +52,7 @@ public class Floor {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        name = fileString;
 
     }
 
