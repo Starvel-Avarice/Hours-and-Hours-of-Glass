@@ -128,6 +128,15 @@ public class Game {
                         actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 1, currentFloor));
                     }
                     break;
+                case "goInv":
+                    actionScreen.inventory();
+                    break;
+                case "goInter":
+                    actionScreen.interact();
+                    break;
+                case "back":
+                    actionScreen.reset();
+                    break;
                 default: 
                     break;
             }
