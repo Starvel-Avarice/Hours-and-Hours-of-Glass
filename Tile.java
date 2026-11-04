@@ -75,45 +75,39 @@ public class Tile {
 
     public String look(int x, int y, int dir, Floor fl) {
         Wall[] myWalls = this.getWalls();
-        int wallToCheck = -1;
 
         int lookX = x;
         int lookY = y;
 
         if (dir==0) {
-            wallToCheck = 0;
-            lookY++;
-        } else if (dir==2) {
-            wallToCheck = 1;
             lookY--;
-        } else if (dir==3) {
-            wallToCheck = 2;
-            lookX--;
-        } else if (dir==2) {
-            wallToCheck = 3;
+        } else if (dir==1) {
             lookX++;
-        } else {
-            wallToCheck = -1;
+        } else if (dir==2) {
+            lookY++;
+        } else if (dir==3) {
+            lookX--;
         }
-
-        Tile targetTile = fl.searchForTile(lookX, lookY) ;
         
-        if(!myWalls[wallToCheck].getSolid()) {
+        Tile targetTile = fl.searchForTile(lookX, lookY);
+        
+        if(!myWalls[dir].getSolid()) {
             if (Game.torchTime>0 || !targetTile.isDark()) {
                     return targetTile.getLookText();
             }   else{
             if(targetTile.isDark() && !this.isDark()){
                     return "There's nothing in the way";
                 }else{
-                    return "Too dark to see";
+                    return "Too dark to see (no wall)";
                 }
         } 
     }else{
         if(targetTile.isDark() && !this.isDark()){
                     return "There's something in the way";
         }else{
-                return "Too dark to see";
-        }}
+                return "Too dark to see (Something in the way)";
+        }
+ }
 }
        
     public boolean isDark() {
