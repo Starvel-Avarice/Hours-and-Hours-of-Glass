@@ -204,6 +204,8 @@ public class ActionScreen {
         if(!moveOptions[0]){
             north.setBackground(Color.decode(sand));
             north.setActionCommand("north");
+        } else {
+            north.setEnabled(false);
         }
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
@@ -212,6 +214,7 @@ public class ActionScreen {
         if(!moveOptions[2]){
             west.setBackground(Color.decode(sand));
             west.setActionCommand("west");
+        } else {
             west.setEnabled(false);
         }
         dirCompassGrid.add(west);
@@ -227,6 +230,7 @@ public class ActionScreen {
         if(!moveOptions[3]){
             east.setActionCommand("east");
             east.setBackground(Color.decode(sand));
+        } else { 
             east.setEnabled(false);
         }
         dirCompassGrid.add(east);
@@ -236,8 +240,10 @@ public class ActionScreen {
         if(!moveOptions[1]){
             south.setActionCommand("south");
             south.setBackground(Color.decode(sand));
+        } else {
             south.setEnabled(false);
         }
+        
       
         dirCompassGrid.add(south);
         dirCompassGrid.add(new JLabel());
@@ -291,7 +297,7 @@ public class ActionScreen {
         invList = new JPanel();
         invList.setBounds(screenSize.width/2-285,screenSize.height/2-120,570,205);
         invList.setLayout(new GridLayout(2,5));
-        invList.setBackground(Color.decode(orangeSand));
+        invList.setBackground(Color.decode(sand));
         updateInfo("Select an item to use");
         invList.setVisible(true);
 
