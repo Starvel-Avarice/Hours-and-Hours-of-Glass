@@ -18,7 +18,6 @@ public class Game {
     public static Floor currentFloor;
     
     public static void main(String[] args) {
-        
         mainGame = new Thread(() -> {
             try {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -40,16 +39,17 @@ public class Game {
     
     
     public static void runGame() {
-        titleScreen = new TitleScreen();
-        boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
+        titleScreen = new TitleScreen();
+        boolean newTile = true;
         boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
         Floor floor1 = new Floor("floor1_1.txt");
         currentFloor = demoFloor; 
       
         Tick masterTimer = new Tick(45, true, mainGame);
+        Inventory.addItem(new Item(1));
     }
 
     public void movePlayer(int dir){
@@ -64,10 +64,16 @@ public class Game {
         public void actionPerformed(ActionEvent event){
             String command = event.getActionCommand();
             if(currentScreen.equals("Inventory")){
-                Inventory.getItems().get(Integer.parseInt(command.substring(5))).use();;
+                if(command.equals("back")){actionScreen.reset();}else{
+                Inventory.getItems().get(Integer.parseInt(command.substring(4))).use();
+                Inventory.removeItem(Integer.parseInt(command.substring(4)));
+                actionScreen.reset();
             }
+            }
+            System.out.println(command);
 
             switch (command) {
+                
                 case "startGame":
                     titleScreen.closeFirstScreen();
                     actionScreen=new ActionScreen(titleScreen.getCon());

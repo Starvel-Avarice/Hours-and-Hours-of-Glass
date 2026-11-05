@@ -54,16 +54,15 @@ public class Tile {
     public int getLadder(){
         return ladder;
     }
-    public Item takeItem(String itemName){
+    public void takeItem(String itemName){
         for(int i=0; i<items.size(); i++){
             System.out.println(items.get(i).getName());
             if(items.get(i).getName().equals(itemName)){
-                int taken = items.get(i).getItemId();
+                Item taken = items.get(i);
                 items.remove(i);
-                return new Item(taken);
+                Inventory.addItem(taken);
             }
         }
-        return null;
     }
 
     public Boolean[] solidWalls(){

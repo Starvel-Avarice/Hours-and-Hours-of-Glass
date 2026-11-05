@@ -306,8 +306,9 @@ public class ActionScreen {
         invList.setVisible(true);
         int i=0;
         for(Item itm:Inventory.getItems()){
-        i++;
         JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+        i++;
+        invList.add(b);
         }
         backButton();
         grabber.add(invList,0);
@@ -316,6 +317,7 @@ public class ActionScreen {
     }
 
     public void interact(){
+        Game.currentScreen="Interact";
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
         interPanel.setVisible(false);
@@ -339,6 +341,7 @@ public class ActionScreen {
     }
     
     public void reset(){
+        Game.currentScreen="Main";
         if (dirCompassGrid != null) {
             dirCompassGrid.setVisible(false);
             inventoryButton.setVisible(true);

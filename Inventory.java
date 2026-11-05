@@ -13,5 +13,13 @@ public class Inventory {
     public static void removeItem(int i){
         inv.remove(i);
     }
-
+    
+    public static int getItemIndex(Item i){
+        for(int n=0; n<inv.size()-1; n++){
+            if(inv.get(n).equals(i)){
+                return n;
+            }
+        }
+        return -1;
+    }
 }

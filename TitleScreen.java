@@ -42,6 +42,7 @@ public class TitleScreen extends JFrame{
        
     }
     public void setupFirstScreen(){
+        Game.currentScreen="Title";
         border = new JPanel();
         border.setBorder(BorderFactory.createLineBorder(Color.decode("#e8975d"), 20));
         border.setBackground(Color.decode("#f6d7b0"));
