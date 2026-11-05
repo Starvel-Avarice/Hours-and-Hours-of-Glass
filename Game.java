@@ -8,8 +8,8 @@ import java.util.TimerTask;
 public class Game {
     public static int time = 1000;
     public static int torchTime = 100;
-    public static int playerX = -1;
-    public static int playerY= -3;
+    public static int playerX = 0;
+    public static int playerY = 0;
     public static String currentScreen;
 
     public static volatile Thread mainGame;
