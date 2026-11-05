@@ -50,6 +50,11 @@ public class ActionScreen {
     Game.EventHandler compassHandler = game.new EventHandler();
     Game.EventHandler textboxHandler = game.new EventHandler();
 
+    private String beige = "#f6d7b0";
+    private String darkGrey = "#4a4540";
+    private String darkBeige = "#c8ab92";
+    private String sand = "#efb787";
+    private String orangeSand = "#e8975d";
     
     private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
     private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
@@ -64,12 +69,12 @@ public class ActionScreen {
         infoPanel.setBounds(screenSize.width/2-300,screenSize.height/2-200,600,300);
         infoPanel.setLayout(null);
         infoPanel.setBorder(BorderFactory.createLineBorder(Color.decode("#e8975d"),15));
-        infoPanel.setBackground(Color.decode("#efb787"));
+        infoPanel.setBackground(Color.decode(sand));
         infoPanel.setVisible(false);
 
         infoText = new JTextArea();
         infoText.setBounds(screenSize.width/2-690,screenSize.height/2-425,570,270);
-        infoText.setForeground(Color.decode("#4a4540"));
+        infoText.setForeground(Color.decode(darkGrey));
         infoText.setFont(mainBoxFont);
         infoText.setEditable(false);
         infoText.setFocusable(false);
@@ -83,58 +88,31 @@ public class ActionScreen {
         inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new BorderLayout());
         inventoryPanel.setBounds(screenSize.width/2-300, screenSize.height/2-285, 175, 75);
-        inventoryPanel.setBackground(Color.decode("#efb787"));
+        inventoryPanel.setBackground(Color.decode(sand));
         inventoryPanel.setVisible(false);
 
         lookPanel = new JPanel();
         lookPanel.setLayout(new BorderLayout());
         lookPanel.setBounds(screenSize.width/2-88, screenSize.height/2+110, 175, 75);
-        lookPanel.setBackground(Color.decode("#efb787"));
+        lookPanel.setBackground(Color.decode(sand));
         lookPanel.setVisible(false);
          
         movePanel = new JPanel();
         movePanel.setLayout(new BorderLayout());
         movePanel.setBounds(screenSize.width/2+125, screenSize.height/2+110, 175, 75);
-        movePanel.setBackground(Color.decode("#efb787"));
+        movePanel.setBackground(Color.decode(sand));
         movePanel.setVisible(false);
 
         interPanel = new JPanel();
         interPanel.setLayout(new BorderLayout());
         interPanel.setBounds(screenSize.width/2-300, screenSize.height/2+110, 175, 75);
-        interPanel.setBackground(Color.decode("#efb787"));
+        interPanel.setBackground(Color.decode(sand));
         interPanel.setVisible(false);
 
-        inventoryButton = new JButton("Inventory");
-        inventoryButton.setBackground(Color.decode("#efb787"));
-        inventoryButton.setForeground(Color.decode("#4a4540"));
-        inventoryButton.setFont(normalFont);
-        inventoryButton.addActionListener(choiceHandler);
-        inventoryButton.setFocusPainted(false);
-        inventoryButton.setActionCommand("goInv");
-        
-        lookButton = new JButton("Look");
-        lookButton.setBackground(Color.decode("#efb787"));
-        lookButton.setForeground(Color.decode("#4a4540"));
-        lookButton.setFont(normalFont);
-        lookButton.addActionListener(choiceHandler);
-        lookButton.setFocusPainted(false);
-        lookButton.setActionCommand("goLook");
-
-        moveButton = new JButton("Move");
-        moveButton.setBackground(Color.decode("#efb787"));
-        moveButton.setForeground(Color.decode("#4a4540"));
-        moveButton.setFont(normalFont);
-        moveButton.addActionListener(choiceHandler);
-        moveButton.setFocusPainted(false);
-        moveButton.setActionCommand("goMove");
-
-        interButton = new JButton("Interact");
-        interButton.setBackground(Color.decode("#efb787"));
-        interButton.setForeground(Color.decode("#4a4540"));
-        interButton.setFont(normalFont);
-        interButton.addActionListener(choiceHandler);
-        interButton.setFocusPainted(false);
-        interButton.setActionCommand("goInter");
+        inventoryButton = buttonBuilder("Inventory", sand, darkGrey, choiceHandler, "goInv");
+        lookButton = buttonBuilder("Look", sand, darkGrey, choiceHandler, "goLook");
+        moveButton = buttonBuilder("Move", sand, darkGrey, choiceHandler, "goMove");
+        interButton = buttonBuilder("Interact", sand, darkGrey, choiceHandler, "goInter");
 
         inventoryPanel.add(inventoryButton);
         lookPanel.add(lookButton);
@@ -144,7 +122,7 @@ public class ActionScreen {
         textboxPanel = new JPanel();
         textboxPanel.setLayout(new BorderLayout());
         textboxPanel.setBounds(screenSize.width/2-250, screenSize.height/2-150, 500, 200);
-        textboxPanel.setBackground(Color.decode("#efb787"));
+        textboxPanel.setBackground(Color.decode(sand));
         textboxPanel.setVisible(false);
 
         enterTextField = new JTextField();
@@ -217,75 +195,48 @@ public class ActionScreen {
 
         dirCompassGrid = new JPanel();
         dirCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
-        dirCompassGrid.setBackground(Color.decode("#f6d7b0"));
+        dirCompassGrid.setBackground(Color.decode(beige));
         dirCompassGrid.setLayout(new GridLayout(3,3));
         dirCompassGrid.setVisible(true);
         dirCompassGrid.add(new JLabel());
 
-        north = new JButton("North");
-        north.setBackground(Color.decode("#c8ab92"));
-        north.setForeground(Color.decode("#4a4540"));
-        north.setFont(normalFont);
-        north.addActionListener(compassHandler);
-        north.setFocusPainted(false);
-
+        north = buttonBuilder("North", darkBeige, darkGrey, compassHandler, "");
         if(!moveOptions[0]){
-        north.setBackground(Color.decode("#efb787"));
-        north.setActionCommand("north");}
-
-
+            north.setBackground(Color.decode(sand));
+            north.setActionCommand("north");
+        }
         dirCompassGrid.add(north);
         dirCompassGrid.add(new JLabel());
 
-
-        west = new JButton("West");
-        west.setBackground(Color.decode("#c8ab92"));
-        west.setForeground(Color.decode("#4a4540"));
-        west.setFont(normalFont);
-        west.addActionListener(compassHandler);
-        west.setFocusPainted(false);
+        west = buttonBuilder("West", darkBeige, darkGrey, compassHandler, "");
         if(!moveOptions[2]){
-        west.setBackground(Color.decode("#efb787"));
-        west.setActionCommand("west");
+            west.setBackground(Color.decode(sand));
+            west.setActionCommand("west");
+            west.setEnabled(false);
         }
         dirCompassGrid.add(west);
-
-
-        upDown = new JButton("Up");
-        upDown.setBackground(Color.decode("#c8ab92"));
-        upDown.setForeground(Color.decode("#4a4540"));
-        upDown.setFont(normalFont);
-        upDown.addActionListener(compassHandler);
-        upDown.setFocusPainted(false);
+        
+        upDown=buttonBuilder("", darkBeige, darkGrey, compassHandler, "");
         upDown.setVisible(false);
         if(Game.currentFloor.searchForTile(Game.playerX,Game.playerY).getLadder()!=0){
         upDown.setActionCommand("up");
         }
         dirCompassGrid.add(upDown);
 
-        east = new JButton("East");
-        east.setBackground(Color.decode("#c8ab92"));
-        east.setForeground(Color.decode("#4a4540"));
-        east.setFont(normalFont);
-        east.addActionListener(compassHandler);
-        east.setFocusPainted(false);
+        east = buttonBuilder("East", darkBeige, darkGrey, compassHandler, "");
         if(!moveOptions[3]){
-        east.setActionCommand("east");
-        east.setBackground(Color.decode("#efb787"));
+            east.setActionCommand("east");
+            east.setBackground(Color.decode(sand));
+            east.setEnabled(false);
         }
         dirCompassGrid.add(east);
         dirCompassGrid.add(new JLabel());
 
-
-        south = new JButton("South");
-        south.setBackground(Color.decode("#c8ab92"));
-        south.setForeground(Color.decode("#4a4540"));
-        south.setFont(normalFont);
-        south.addActionListener(compassHandler);
-        south.setFocusPainted(false);
+        south = buttonBuilder("South", darkBeige, darkGrey, compassHandler, "");
         if(!moveOptions[1]){
-        south.setActionCommand("south");
-        south.setBackground(Color.decode("#efb787"));
+            south.setActionCommand("south");
+            south.setBackground(Color.decode(sand));
+            south.setEnabled(false);
         }
       
         dirCompassGrid.add(south);
@@ -305,62 +256,26 @@ public class ActionScreen {
 
         lookCompassGrid = new JPanel();
         lookCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
-        lookCompassGrid.setBackground(Color.decode("#f6d7b0"));
+        lookCompassGrid.setBackground(Color.decode(beige));
         lookCompassGrid.setLayout(new GridLayout(3,3));
         lookCompassGrid.setVisible(true);
         lookCompassGrid.add(new JLabel());
 
-        north = new JButton("North");
-        north.setBackground(Color.decode("#efb787"));
-        north.setForeground(Color.decode("#4a4540"));
-        north.setFont(normalFont);
-        north.addActionListener(choiceHandler);
-        north.setFocusPainted(false);
-        north.setActionCommand("ahead");
-
-
+        north = buttonBuilder("North", sand, darkGrey, choiceHandler, "ahead");        
         lookCompassGrid.add(north);
         lookCompassGrid.add(new JLabel());
 
-        west = new JButton("West");
-        west.setBackground(Color.decode("#efb787"));
-        west.setForeground(Color.decode("#4a4540"));
-        west.setFont(normalFont);
-        west.addActionListener(choiceHandler);
-        west.setFocusPainted(false);
-        west.setActionCommand("left");
-
+        west = buttonBuilder("West", sand, darkGrey, choiceHandler, "left");
         lookCompassGrid.add(west);
 
-        upDown = new JButton("Current");
-        upDown.setBackground(Color.decode("#efb787"));
-        upDown.setForeground(Color.decode("#4a4540"));
-        upDown.setFont(normalFont);
-        upDown.addActionListener(choiceHandler);
-        upDown.setFocusPainted(false);
-        upDown.setActionCommand("current");
-
+        upDown=buttonBuilder("Current", sand, darkGrey, choiceHandler, "current");
         lookCompassGrid.add(upDown);
 
-        east = new JButton("East");
-        east.setBackground(Color.decode("#efb787"));
-        east.setForeground(Color.decode("#4a4540"));
-        east.setFont(normalFont);
-        east.addActionListener(choiceHandler);
-        east.setFocusPainted(false);
-        east.setActionCommand("right");
-
+        east = buttonBuilder("East", sand, darkGrey, choiceHandler, "right");
         lookCompassGrid.add(east);
         lookCompassGrid.add(new JLabel());
 
-        south = new JButton("South");
-        south.setBackground(Color.decode("#efb787"));
-        south.setForeground(Color.decode("#4a4540"));
-        south.setFont(normalFont);
-        south.addActionListener(choiceHandler);
-        south.setFocusPainted(false);
-        south.setActionCommand("behind");
-
+        south = buttonBuilder("South", sand, darkGrey, choiceHandler, "behind");
         lookCompassGrid.add(south);
         lookCompassGrid.add(new JLabel());
         
@@ -376,7 +291,7 @@ public class ActionScreen {
         invList = new JPanel();
         invList.setBounds(screenSize.width/2-285,screenSize.height/2-120,570,205);
         invList.setLayout(new GridLayout(2,5));
-        invList.setBackground(Color.decode("#efb787"));
+        invList.setBackground(Color.decode(orangeSand));
         updateInfo("Select an item to use");
         invList.setVisible(true);
 
@@ -395,7 +310,7 @@ public class ActionScreen {
         intList= new JPanel();
         intList.setBounds(screenSize.width/2-285,screenSize.height/2-185,190,270);
         intList.setLayout(new GridLayout(4,1));
-        intList.setBackground(Color.decode("#efb787"));
+        intList.setBackground(Color.decode(sand));
         intList.setVisible(true);
 
         backButton();
@@ -403,14 +318,8 @@ public class ActionScreen {
     }
     
     public void backButton(){
-        back = new JButton("Back");
-        back.setBackground(Color.decode("#efb787"));
-        back.setForeground(Color.decode("#4a4540"));
-        back.setFont(normalFont);
-        back.addActionListener(choiceHandler);
-        back.setFocusPainted(false);
-        back.setActionCommand("back");
 
+        back = buttonBuilder("Back", sand, darkGrey, choiceHandler, "back");
         inventoryButton.setVisible(false);
         inventoryPanel.add(back);
     }
@@ -459,4 +368,15 @@ public class ActionScreen {
             timer.schedule(timerTask, 2000);
         }
     }
+    
+    public JButton buttonBuilder(String butTitle, String backCol, String foreCol, Game.EventHandler handle, String actCom) {
+        JButton sender = new JButton(butTitle);
+        sender.setBackground(Color.decode(backCol));
+        sender.setForeground(Color.decode(foreCol));
+        sender.setFont(normalFont);
+        sender.addActionListener(handle);
+        sender.setFocusPainted(false);
+        sender.setActionCommand(actCom);
+        return sender;
+}
 }
