@@ -11,6 +11,7 @@ public class Game {
     public static int playerX = 0;
     public static int playerY = 0;
     public static String currentScreen;
+    public static boolean hasTorch = false;
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
@@ -44,12 +45,19 @@ public class Game {
         boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
-        boolean hasTorch = false;
         Floor demoFloor = new Floor("demo.txt");
         Floor floor1 = new Floor("floor1_1.txt");
         currentFloor = floor1; 
       
-        Tick masterTimer = new Tick(45, true, mainGame);
+        Tick masterTimer = new Tick(1000, true, mainGame);
+    }
+
+    public void displayText(boolean torch) {
+        if (torch || !currentFloor.searchForTile(playerX, playerY).isDark()) {
+            actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).getLookText());
+        } else {
+            actionScreen.updateInfo("You can't see anything.");
+        };
     }
 
     public void movePlayer(int dir){
@@ -72,7 +80,7 @@ public class Game {
                     break;
                 case "goMove":
                     actionScreen.dirCompass();
-                    actionScreen.textboxPanel(true);
+                    // actionScreen.textboxPanel(true);
                     break;
                 case "goLook":
                     actionScreen.lookCompass();
@@ -80,23 +88,23 @@ public class Game {
                 case "north":
                         actionScreen.reset();
                         movePlayer(0);
-                        actionScreen.updateInfo("X:"+playerX+"Y:"+playerY);
+                        displayText(hasTorch);
                 break;
                 case "east":
                         actionScreen.reset();
                         movePlayer(3);
-                        actionScreen.updateInfo("X:"+playerX+"Y:"+playerY);
+                        displayText(hasTorch);
 
                 break;
                 case "west":
                         actionScreen.reset();
                         movePlayer(2);
-                        actionScreen.updateInfo("X:"+playerX+"Y:"+playerY);
+                        displayText(hasTorch);
                 break;
                 case "south":
                         actionScreen.reset();
                         movePlayer(1);
-                        actionScreen.updateInfo("X:"+playerX+"Y:"+playerY);
+                        displayText(hasTorch);
                 break;
                 case "up":
                 break;
@@ -127,7 +135,7 @@ public class Game {
                 case "behind":
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerX).look(playerX, playerY, 1, currentFloor));
+                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).look(playerX, playerY, 1, currentFloor));
                     }
                     break;
                 case "goInv":
