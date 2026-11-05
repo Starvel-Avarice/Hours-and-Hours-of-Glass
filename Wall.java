@@ -39,7 +39,7 @@ public class Wall {
       return inspect;
     }
 
-    public Boolean getSolid() {
+    public boolean getSolid() {
         return solid;
     }
 

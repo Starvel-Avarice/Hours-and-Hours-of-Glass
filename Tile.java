@@ -95,25 +95,26 @@ public class Tile {
         } else if (dir==2) {
             lookX++;
         }
-
-        Tile targetTile = fl.searchForTile(lookX, lookY) ;
         
-        if(!myWalls[wallToCheck].getSolid()) {
+        Tile targetTile = fl.searchForTile(lookX, lookY);
+        
+        if(!myWalls[dir].getSolid()) {
             if (Game.torchTime>0 || !targetTile.isDark()) {
                     return targetTile.getLookText();
             }   else{
             if(targetTile.isDark() && !this.isDark()){
                     return "There's nothing in the way";
                 }else{
-                    return "Too dark to see";
+                    return "Too dark to see (no wall)";
                 }
         } 
     }else{
         if(targetTile.isDark() && !this.isDark()){
                     return "There's something in the way";
         }else{
-                return "Too dark to see";
-        }}
+                return "Too dark to see (Something in the way)";
+        }
+ }
 }
        
     public boolean isDark() {
