@@ -10,6 +10,7 @@ public class Game {
     public static boolean hasTorch = false;
     public static int glassShards = 0;
     public static String interruption = "";
+    public static boolean goblinEncountered = false;
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
@@ -26,22 +27,53 @@ public class Game {
                 }
             } catch (InterruptedException e) {
                 System.out.println("Thread interrupted.");
+                actionScreen.togglePanels(false);
                 if (interruption.equals("endGame")) {
-                    actionScreen.gameEnd();
                     // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
                     actionScreen.updateInfo("You gasp as the entire structure starts to rotate, throwing you violently around. Unfortunately, you hit your head on a wall, dying upon impact.");
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException ex) {
-                        System.getLogger(Game.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        System.out.println("Failed");
                     }
                     actionScreen.updateInfo("GAME OVER!");
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException ex) {
-                        System.getLogger(Game.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        System.out.println("Failed");
                     }
                     System.exit(0);
+                } else if (interruption.equals("goblinEncounter")) {
+                    actionScreen.updateInfo("You enter an ominous-looking dark room, and you hear a gate close behind you, trapping you inside. At the center of the room, you find a massive, snarling goblin!");
+                    try {
+                        Thread.sleep(8000);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Failed");
+                    }
+                    if (glassShards >= 2) {
+                        actionScreen.updateInfo("Luckily, you picked up some glass shards! Your first throw misses, but your second throw connects, impaling the goblin on impact.");
+                    } else if (Game.glassShards == 1) {
+                        actionScreen.updateInfo("Luckily, you picked up a glass shard! You try throwing it, but unfortunately it misses, and the goblin is not happy. The last thing you see before death is the goblin lurching towards you.");
+                    } else {
+                        actionScreen.updateInfo("As soon as he makes eye contact with you, he lunges towards you, killing you.");
+                    }
+                    try {
+                        Thread.sleep(6000);
+                    } catch (InterruptedException ex) {
+                        System.out.println("Failed");
+                    }
+                    if (glassShards < 2) {
+                        actionScreen.updateInfo("GAME OVER!");
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException ex) {
+                            System.out.println("Failed");
+                        }
+                        System.exit(0);
+                    } else {
+                        actionScreen.togglePanels(true);
+                        actionScreen.updateInfo("Congratulations: you have defeated the goblin!");
+                    }
                 }
             }
         });
@@ -72,6 +104,7 @@ public class Game {
         if(dir==3){playerX++;}
         if(dir==1){playerY--;}
         if(dir==2){playerX--;}
+
     }
 
     public class EventHandler implements ActionListener {
@@ -130,22 +163,26 @@ public class Game {
                         actionScreen.reset();
                         movePlayer(0);
                         displayText(hasTorch);
+                        checkForInterruption();
                 break;
                 case "east":
                         actionScreen.reset();
                         movePlayer(3);
                         displayText(hasTorch);
+                        checkForInterruption();
 
                 break;
                 case "west":
                         actionScreen.reset();
                         movePlayer(2);
                         displayText(hasTorch);
+                        checkForInterruption();
                 break;
                 case "south":
                         actionScreen.reset();
                         movePlayer(1);
                         displayText(hasTorch);
+                        checkForInterruption();
                 break;
                 case "up":
                 break;
@@ -190,6 +227,15 @@ public class Game {
                     break;
                 default: 
                     break;
+            }
+        }
+    }
+
+    public void checkForInterruption() {
+        if (playerX == 1 && playerY == -2 && currentFloor.getName().equals("floor1_1.txt")) {
+            if (!goblinEncountered) {
+                interruption = "goblinEncounter";
+                mainGame.interrupt();
             }
         }
     }

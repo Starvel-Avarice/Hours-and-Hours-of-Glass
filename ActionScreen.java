@@ -33,7 +33,7 @@ public class ActionScreen {
     private JButton east;
     private JButton south;
     private JButton west;
-    private JButton upDown;
+    public JButton upDown;
 
     private JPanel invList;
     private JPanel intList;
@@ -219,10 +219,19 @@ public class ActionScreen {
         }
         dirCompassGrid.add(west);
         
-        upDown=buttonBuilder("", darkBeige, darkGrey, compassHandler, "");
-        upDown.setVisible(false);
-        if(Game.currentFloor.searchForTile(Game.playerX,Game.playerY).getLadder()!=0){
-        upDown.setActionCommand("up");
+        upDown=buttonBuilder("", sand, darkGrey, compassHandler, "");
+        if (Game.currentFloor.searchForTile(Game.playerX, Game.playerY).getLadder() == 1) {
+            upDown.setVisible(true);
+            upDown.setText("Up");
+            upDown.setActionCommand("up");
+            upDown.setEnabled(true);
+        } else if (Game.currentFloor.searchForTile(Game.playerX, Game.playerY).getLadder() == 2) {
+            upDown.setVisible(true);
+            upDown.setText("Down");
+            upDown.setActionCommand("down");
+            upDown.setEnabled(true);
+        } else {
+            upDown.setVisible(false);
         }
         dirCompassGrid.add(upDown);
 
@@ -249,7 +258,7 @@ public class ActionScreen {
         dirCompassGrid.add(new JLabel());
  
         backButton();
-        grabber.add(dirCompassGrid,0);        
+        grabber.add(dirCompassGrid,0);      
         
     }
     
@@ -379,14 +388,26 @@ public class ActionScreen {
         Game.displayText(Game.hasTorch);
     }
 
-    public void gameEnd() {
-        inventoryPanel.setVisible(false);
-        lookPanel.setVisible(false);
-        movePanel.setVisible(false);
-        interPanel.setVisible(false);
-        textboxPanel.setVisible(false);
+    public void togglePanels(boolean toggle) {
+        reset();
+        inventoryButton.setEnabled(toggle);
+        lookButton.setEnabled(toggle);
+        moveButton.setEnabled(toggle);
+        interButton.setEnabled(toggle);
+
+        if (toggle) {
+            inventoryButton.setBackground(Color.decode(sand));
+            lookButton.setBackground(Color.decode(sand));
+            moveButton.setBackground(Color.decode(sand));
+            interButton.setBackground(Color.decode(sand));
+        } else {
+            inventoryButton.setBackground(Color.decode(darkBeige));
+            lookButton.setBackground(Color.decode(darkBeige));
+            moveButton.setBackground(Color.decode(darkBeige));
+            interButton.setBackground(Color.decode(darkBeige)); 
+        }
     }
-    
+
     public void textboxPanel(boolean toggle) {
         if (toggle) {
             textboxPanel.setVisible(true);
