@@ -49,6 +49,7 @@ public class ActionScreen {
     Game.EventHandler choiceHandler = game.new EventHandler();
     Game.EventHandler compassHandler = game.new EventHandler();
     Game.EventHandler textboxHandler = game.new EventHandler();
+    Game.EventHandler itemHandler = game.new EventHandler();
 
     private String beige = "#f6d7b0";
     private String darkGrey = "#4a4540";
@@ -290,17 +291,24 @@ public class ActionScreen {
     }
 
     public void inventory(){
+        Game.currentScreen="Inventory";
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
         interPanel.setVisible(false);
         
+
+
         invList = new JPanel();
         invList.setBounds(screenSize.width/2-285,screenSize.height/2-120,570,205);
         invList.setLayout(new GridLayout(2,5));
         invList.setBackground(Color.decode(sand));
         updateInfo("Select an item to use");
         invList.setVisible(true);
-
+        int i=0;
+        for(Item itm:Inventory.getItems()){
+        i++;
+        JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+        }
         backButton();
         grabber.add(invList,0);
 

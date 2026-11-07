@@ -62,7 +62,6 @@ public class Item {
                     theTile.getWalls()[2].setSolid(false);
                 }
                 break;
-            
             default:
                 System.out.println("Does nothing");
                 break;

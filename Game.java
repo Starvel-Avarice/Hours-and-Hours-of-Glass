@@ -47,7 +47,7 @@ public class Game {
         Wall.genWallHash();
         Floor demoFloor = new Floor("demo.txt");
         Floor floor1 = new Floor("floor1_1.txt");
-        currentFloor = floor1; 
+        currentFloor = demoFloor; 
       
         Tick masterTimer = new Tick(1000, true, mainGame);
     }
@@ -71,6 +71,10 @@ public class Game {
         public EventHandler(){}
         public void actionPerformed(ActionEvent event){
             String command = event.getActionCommand();
+            if(currentScreen.equals("Inventory")){
+                Inventory.getItems().get(Integer.parseInt(command.substring(5))).use();;
+            }
+
             switch (command) {
                 case "startGame":
                     titleScreen.closeFirstScreen();
