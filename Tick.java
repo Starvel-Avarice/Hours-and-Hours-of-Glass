@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,6 +18,7 @@ public class Tick {
                 time[0] -= 1;
                 if (time[0] <= 0) {
                     if (master) {
+                        Game.interruption = "endGame";
                         myThread.interrupt();
                     }
                     this.cancel();

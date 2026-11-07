@@ -11,7 +11,22 @@ public class Inventory {
     }
 
     public static void removeItem(int i){
-        inv.remove(i);
+        for (int j = 0; j < inv.size(); j++) {
+            if (inv.get(j).getItemId() == i) {
+                inv.remove(j);
+                System.out.println("WORKING!");
+            }
+        }
+    }
+
+    public static Item findItem(int i){
+        for (int j = 0; j < inv.size(); j++) {
+            if (inv.get(j).getItemId() == i) {
+                System.out.println("WORKING!");
+                return inv.get(j);
+            }
+        }
+        return new Item(0);
     }
 
 }
