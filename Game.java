@@ -6,12 +6,12 @@ public class Game {
     public static int torchTime = 100;
     public static int playerX = 0;
     public static int playerY = 0;
-    public static String currentScreen;
+    public static String currentScreen = "main";
     public static boolean hasTorch = false;
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
-    private static ActionScreen actionScreen;
+    public static ActionScreen actionScreen;
     public static Floor currentFloor;
     
     public static void main(String[] args) {
@@ -43,14 +43,14 @@ public class Game {
         Wall.genWallHash();
         Floor demoFloor = new Floor("demo.txt");
         Floor floor1 = new Floor("floor1_1.txt");
-        currentFloor = demoFloor; 
+        currentFloor = floor1; 
       
         Tick masterTimer = new Tick(1000, true, mainGame);
     }
 
-    public void displayText(boolean torch) {
+    public static void displayText(boolean torch) {
         if (torch || !currentFloor.searchForTile(playerX, playerY).isDark()) {
-            actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).getLookText());
+            actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).getFullText());
         } else {
             actionScreen.updateInfo("You can't see anything.");
         };
@@ -67,10 +67,24 @@ public class Game {
         public EventHandler(){}
         public void actionPerformed(ActionEvent event){
             String command = event.getActionCommand();
+            Tile targetTile = currentFloor.searchForTile(playerX, playerY);
             if(currentScreen.equals("Inventory") & command.substring(0,4).equals("Item")){
                 System.out.println(Inventory.getItems());
-                Inventory.getItems().get(Integer.parseInt(command.substring(5))).use(); }
-
+                Inventory.getItems().get(Integer.parseInt(command.substring(4))).use(); }
+            if(currentScreen.equals("Interact") & command.substring(0,4).equals("Item")){
+                Item targetItem = targetTile.getItems().get(Integer.parseInt(command.substring(4)));
+                String itemName = targetItem.getName();
+                System.out.println(itemName);
+                if (targetItem.isObtainable()) {
+                    System.out.println("WOO");
+                    Inventory.addItem(targetTile.takeItem(itemName));
+                }
+                if (itemName.equals("Torch")) {
+                    hasTorch = true;
+                }
+                actionScreen.reset();
+            }
+                
             switch (command) {
                 case "startGame":
                     titleScreen.closeFirstScreen();

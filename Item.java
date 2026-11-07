@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Timer;
 
 public class Item {
     private String lore;
@@ -24,6 +23,7 @@ public class Item {
         name = i.getName();
         //action = i.use();
         knownId = id;
+        obtainable = i.isObtainable();
        }else{
         System.out.println("Unkown Item ID:"+id);
        }
@@ -53,13 +53,9 @@ public class Item {
             case 2: 
                 if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
                     Tile theTile = Game.currentFloor.searchForTile(1, 2);
-                    theTile.getWalls()[1].setSolid(false);
-                }
-                break;
-            case 5:
-                if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == -3 && Game.playerY == 0) {
-                    Tile theTile = Game.currentFloor.searchForTile(-3, 0);
-                    theTile.getWalls()[2].setSolid(false);
+                    theTile.getWalls()[3].setSolid(false);
+                    Inventory.removeItem(2);
+                    Game.actionScreen.reset();
                 }
                 break;
             default:
@@ -74,6 +70,10 @@ public class Item {
 
     public String getName(){
         return name;
+    }
+
+    public boolean isObtainable(){
+        return obtainable;
     }
 
 }

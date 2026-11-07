@@ -306,15 +306,17 @@ public class ActionScreen {
         int i = 0;
         for (Item itm:Inventory.getItems()) {
             JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+            invList.add(b, 0);
             i++;
         }
         backButton();
-        grabber.add(invList,-1);
+        grabber.add(invList,0);
 
 
     }
 
     public void interact(){
+        Game.currentScreen="Interact";
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
         interPanel.setVisible(false);
@@ -328,6 +330,16 @@ public class ActionScreen {
 
         backButton();
         grabber.add(intList,0);
+        Tile targetTile = Game.currentFloor.searchForTile(Game.playerX, Game.playerY);
+        if (targetTile.getItems().size() != 0) {
+            System.out.println("DETECTED!");
+            int i = 0;
+            for (Item itm:targetTile.getItems()) {
+                JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+                intList.add(b, 0);
+                i++;
+        }
+        }
     }
     
     public void backButton(){
@@ -362,9 +374,8 @@ public class ActionScreen {
         lookPanel.setVisible(true);
         movePanel.setVisible(true);
         interPanel.setVisible(true);
-        
-        
-        updateInfo("This is the main menu");
+
+        Game.displayText(Game.hasTorch);
     }
 
     public void textboxPanel(boolean toggle) {

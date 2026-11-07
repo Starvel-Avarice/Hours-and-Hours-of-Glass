@@ -11,6 +11,7 @@ public class Wall {
     }
 
     public static void genWallHash(){
+        wallHash.put(2, new Wall("A locked door",true));
         wallHash.put(1, new Wall("There is nothing there",false));
         wallHash.put(0, new Wall("It's a solid wall",true));
     }
