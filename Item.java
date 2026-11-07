@@ -48,6 +48,7 @@ public class Item {
         switch (knownId) {
             case 1:
                 Game.torchTime = 10000;
+                Game.hasTorch = true;
                 break;
             case 2: 
                 if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == 1 && Game.playerY == 2) {
@@ -55,10 +56,6 @@ public class Item {
                     theTile.getWalls()[1].setSolid(false);
                 }
                 break;
-            case 30:
-                if(Game.playerX==-3 && Game.playerY==-1){
-                    
-                }
             case 5:
                 if (Game.currentFloor.getName() == "floor1_1.txt" && Game.playerX == -3 && Game.playerY == 0) {
                     Tile theTile = Game.currentFloor.searchForTile(-3, 0);
