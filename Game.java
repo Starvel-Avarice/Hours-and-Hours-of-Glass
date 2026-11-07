@@ -8,6 +8,8 @@ public class Game {
     public static int playerY = 0;
     public static String currentScreen = "main";
     public static boolean hasTorch = false;
+    public static int glassShards = 0;
+    public static String interruption = "";
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
@@ -23,12 +25,24 @@ public class Game {
                     Thread.sleep(5);    // changing to sleep(5) puts the thread in a sleep state and allows it to be woken up, printing the "Thread interrupted" message below
                 }
             } catch (InterruptedException e) {
-                System.out.println();
-                // System.out.println("Thread interrupted.");
-
-                // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
-                System.out.println("Game over!");
-                System.exit(0);
+                System.out.println("Thread interrupted.");
+                if (interruption.equals("endGame")) {
+                    actionScreen.gameEnd();
+                    // added the following code...not sure if this is what you wanted?  System.exit(0) kills the application.  But did you want to find a way to keep running the app, just not the Thread?
+                    actionScreen.updateInfo("You gasp as the entire structure starts to rotate, throwing you violently around. Unfortunately, you hit your head on a wall, dying upon impact.");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        System.getLogger(Game.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
+                    actionScreen.updateInfo("GAME OVER!");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException ex) {
+                        System.getLogger(Game.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
+                    System.exit(0);
+                }
             }
         });
         mainGame.start();
@@ -38,14 +52,11 @@ public class Game {
     
     public static void runGame() {
         titleScreen = new TitleScreen();
-        boolean newTile = true;
         Item.genItemHash();
         Wall.genWallHash();
         Floor demoFloor = new Floor("demo.txt");
         Floor floor1 = new Floor("floor1_1.txt");
         currentFloor = floor1; 
-      
-        Tick masterTimer = new Tick(1000, true, mainGame);
     }
 
     public static void displayText(boolean torch) {
@@ -77,12 +88,27 @@ public class Game {
                 System.out.println(itemName);
                 if (targetItem.isObtainable()) {
                     System.out.println("WOO");
-                    Inventory.addItem(targetTile.takeItem(itemName));
+                    if (itemName.equals("Glass Shards")) {
+                        if (glassShards == 0) {
+                            Inventory.addItem(targetTile.takeItem(itemName));
+                        }
+                        Item glassShardsItem = Inventory.findItem(1000);
+                        glassShards++;
+                        glassShardsItem.changeName("Glass Shards: " + String.valueOf(glassShards));
+                        actionScreen.reset();
+                        actionScreen.updateInfo("Glass Shard(s) acquired!");
+                    } else {
+                        Inventory.addItem(targetTile.takeItem(itemName));
+                        actionScreen.reset();
+                        actionScreen.updateInfo(itemName + " acquired!");
+                    }
                 }
                 if (itemName.equals("Torch")) {
                     hasTorch = true;
                 }
-                actionScreen.reset();
+                if (itemName.equals("The Pink Puzzle")) {
+                    actionScreen.textboxPanel(true);
+                }
             }
                 
             switch (command) {
@@ -90,7 +116,8 @@ public class Game {
                     titleScreen.closeFirstScreen();
                     actionScreen=new ActionScreen(titleScreen.getCon());
                     actionScreen.openMainScreen();
-                    actionScreen.updateInfo("This is the main menu");
+                    actionScreen.updateInfo("You wake up at the bottom of a very deep pit. Glancing up, you can see what almost looks like glass at the top of this impossibly-high chasm. In a flash, you remember falling into this place: tripping on something, and tumbling into this abyss. How are you alive?");
+                    Tick masterTimer = new Tick(1000, true, mainGame);
                     break;
                 case "goMove":
                     actionScreen.dirCompass();
@@ -137,7 +164,7 @@ public class Game {
                 case "current":       
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).getLookText());
+                        Game.displayText(hasTorch);
                     }
                     break;
                 case "right":

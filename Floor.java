@@ -29,8 +29,10 @@ public class Floor {
                 int[] itemIds = stringArrayToIntArray(splits[2].split(","));
                 ArrayList<Item> items = new ArrayList<>();
                 for(int i=0; i<itemIds.length; i++){
-                    items.add(new Item(itemIds[i]));
-                };
+                    if (itemIds[i] != 0) {
+                        items.add(new Item(itemIds[i]));
+                    }
+                }
 
                 String[] coords = splits[3].split(",");
                 int[] coordInts = stringArrayToIntArray(coords);

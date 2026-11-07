@@ -84,38 +84,40 @@ public class Tile {
 
         if (dir==0) {
             lookY++;
-        } else if (dir==2) {
+        } else if (dir==1) {
             lookY--;
         } else if (dir==3) {
             lookX++;
-        } else if (dir==1) {
-            lookY--;
         } else if (dir==2) {
             lookX--;
-        } else if (dir==2) {
-            lookX++;
         }
         
         Tile targetTile = fl.searchForTile(lookX, lookY);
         
         if(!myWalls[dir].getSolid()) {
-            if (Game.torchTime>0 || !targetTile.isDark()) {
+            if (Game.hasTorch || !targetTile.isDark()) {
                     return targetTile.getLookText();
-            }   else{
-            if(targetTile.isDark() && !this.isDark()){
-                    return "There's nothing in the way";
-                }else{
-                    return "Too dark to see (no wall)";
-                }
-        } 
-    }else{
-        if(targetTile.isDark() && !this.isDark()){
+            } else {
+                if(targetTile.isDark() && !this.isDark()){
+                        return "There's nothing in the way";
+                    }else{
+                        return "Too dark to see (no wall)";
+                    }
+            } 
+        } else {
+            System.out.println(myWalls[dir].getInspect());
+            if (Game.hasTorch || !this.isDark()) {
+                System.out.println(myWalls[dir].getInspect());
+                if (myWalls[dir].getInspect().equals("A locked door")) {
+                    return "A locked door.";
+                } else {
                     return "There's something in the way";
-        }else{
+                }
+            } else {
                 return "Too dark to see (Something in the way)";
+            }
         }
- }
-}
+    }
        
     public boolean isDark() {
         return dark;

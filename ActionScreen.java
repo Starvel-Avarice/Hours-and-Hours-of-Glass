@@ -19,7 +19,7 @@ public class ActionScreen {
     private JPanel lookPanel;
     private JPanel movePanel;
     private JPanel interPanel;
-    private JPanel textboxPanel;
+    public JPanel textboxPanel;
 
     private JButton inventoryButton;
     private JButton lookButton;
@@ -72,7 +72,7 @@ public class ActionScreen {
         infoPanel.setVisible(false);
 
         infoText = new JTextArea();
-        infoText.setBounds(screenSize.width/2-690,screenSize.height/2-425,570,270);
+        infoText.setBounds(screenSize.width/2-900,screenSize.height/2-500,500,270);
         infoText.setForeground(Color.decode(darkGrey));
         infoText.setFont(mainBoxFont);
         infoText.setEditable(false);
@@ -82,7 +82,7 @@ public class ActionScreen {
         infoText.setOpaque(false);
  
         infoPanel.add(infoText);
-        grabber.add(infoPanel,1);
+        grabber.add(infoPanel,2);
 
         inventoryPanel = new JPanel();
         inventoryPanel.setLayout(new BorderLayout());
@@ -132,10 +132,10 @@ public class ActionScreen {
 
         textboxPanel.add(enterTextField);
 
-        grabber.add(inventoryPanel,1);
-        grabber.add(lookPanel,1);
-        grabber.add(movePanel,1);
-        grabber.add(interPanel,1);
+        grabber.add(inventoryPanel,2);
+        grabber.add(lookPanel,2);
+        grabber.add(movePanel,2);
+        grabber.add(interPanel,2);
         grabber.add(textboxPanel,0);
 
         enterTextField.getDocument().addDocumentListener(new DocumentListener(){
@@ -310,7 +310,7 @@ public class ActionScreen {
             i++;
         }
         backButton();
-        grabber.add(invList,0);
+        grabber.add(invList,1);
 
 
     }
@@ -329,7 +329,6 @@ public class ActionScreen {
         intList.setVisible(true);
 
         backButton();
-        grabber.add(intList,0);
         Tile targetTile = Game.currentFloor.searchForTile(Game.playerX, Game.playerY);
         if (targetTile.getItems().size() != 0) {
             System.out.println("DETECTED!");
@@ -338,8 +337,9 @@ public class ActionScreen {
                 JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
                 intList.add(b, 0);
                 i++;
+            }
         }
-        }
+        grabber.add(intList,1);
     }
     
     public void backButton(){
@@ -374,10 +374,19 @@ public class ActionScreen {
         lookPanel.setVisible(true);
         movePanel.setVisible(true);
         interPanel.setVisible(true);
+        textboxPanel.setVisible(false);
 
         Game.displayText(Game.hasTorch);
     }
 
+    public void gameEnd() {
+        inventoryPanel.setVisible(false);
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        interPanel.setVisible(false);
+        textboxPanel.setVisible(false);
+    }
+    
     public void textboxPanel(boolean toggle) {
         if (toggle) {
             textboxPanel.setVisible(true);
@@ -387,10 +396,14 @@ public class ActionScreen {
             timerTask = new TimerTask() {
                 public void run() {
                     textboxPanel.setVisible(false);
+                    reset();
                 };
             };
             timer.schedule(timerTask, 2000);
         }
+        backButton();
+        grabber.repaint();
+        grabber.revalidate();
     }
     
     public JButton buttonBuilder(String butTitle, String backCol, String foreCol, Game.EventHandler handle, String actCom) {
