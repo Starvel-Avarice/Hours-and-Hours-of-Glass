@@ -1,8 +1,4 @@
 import java.awt.event.*;
-import java.util.Currency;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class Game {
@@ -10,7 +6,7 @@ public class Game {
     public static int torchTime = 100;
     public static int playerX = -1;
     public static int playerY= -3;
-    public static String currentScreen;
+    public static String currentScreen = "main";
 
     public static volatile Thread mainGame;
     private static TitleScreen titleScreen;
@@ -63,9 +59,9 @@ public class Game {
         public EventHandler(){}
         public void actionPerformed(ActionEvent event){
             String command = event.getActionCommand();
-            if(currentScreen.equals("Inventory")){
-                Inventory.getItems().get(Integer.parseInt(command.substring(5))).use();;
-            }
+            if(currentScreen.equals("Inventory") & command.substring(0,4).equals("Item")){
+                System.out.println(Inventory.getItems());
+                Inventory.getItems().get(Integer.parseInt(command.substring(5))).use(); }
 
             switch (command) {
                 case "startGame":

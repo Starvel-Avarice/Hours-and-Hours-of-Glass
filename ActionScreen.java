@@ -1,11 +1,9 @@
-import javax.swing.*;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.DocumentEvent;
-
 import java.awt.*;
-
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class ActionScreen {
     private JPanel infoPanel;
@@ -170,6 +168,7 @@ public class ActionScreen {
     }
     
     public void openMainScreen(){
+        Game.currentScreen = "main";
         infoPanel.setVisible(true);
         inventoryPanel.setVisible(true);
         lookPanel.setVisible(true);
@@ -304,13 +303,13 @@ public class ActionScreen {
         invList.setBackground(Color.decode(sand));
         updateInfo("Select an item to use");
         invList.setVisible(true);
-        int i=0;
-        for(Item itm:Inventory.getItems()){
-        i++;
-        JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+        int i = 0;
+        for (Item itm:Inventory.getItems()) {
+            JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
+            i++;
         }
         backButton();
-        grabber.add(invList,0);
+        grabber.add(invList,-1);
 
 
     }
