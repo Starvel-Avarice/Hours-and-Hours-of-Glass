@@ -4,20 +4,20 @@
 1,1,1,1	0	1000	-1,2	A crossroads.	You exit into a crossroads. Illuminated by your torch, the room almost seems to shimmer, and you can see shards of glass sticking out of the walls.	d
 0,0,1,1	0	0	0,2	A long tunnel.	You find yourself in a very long tunnel leading... somewhere.	d
 1,0,1,2	0	0	1,2	A small corner room.	You enter a small dark room. Towards the east, there is a door with a blue keyhole.	d
-0,1,2,2	0	0	2,2	Filler	Filler	d
-0,0,2,0	0	666	3,2	Filler	Trapdoor	l
-0,1,0,1	0	1000	-3,1	Filler	Shards	d
-1,0,1,0	0	1,2	-2,1	Filler	Torch/Key	l	
+0,1,2,2	0	0	2,2	A small hallway.	You find yourself in a hallway. Towards the east, there is a door with a green keyhole.	d
+0,0,2,0	0	666	3,2	A glowing platform.	Filler - covered by death text  	l
+0,1,0,1	0	1000	-3,1	Another cave segment.	You arrive in another cave segment. Shards of glass line the walls: they look sharp!	d
+1,0,1,0	0	1,2	-2,1	Look, a light!	You enter a room bathed in yellowish light. As your eyes adjust, you realize it is coming from the various torches scattered around the room: this area seems to be a storehouse of sorts. Hanging on the wall is a blue key.	l	
 1,1,0,0	0	0	-1,1	A random tunnel.	You enter a completely dark cave segment. Why is it so dark in here?	d
-1,1,0,0	0	0	2,1	Filler	Filler	d
+1,1,0,0	0	0	2,1	A tunnel lined with wooden arches.	Continuing through the tunnel, you notice it is reinforced with wooden arches: why would this area be reinforced, but not the rest?	d
 0,0,0,2	0	4	-4,0	A room filled with pink smoke.	You enter a room filled with pink smoke. In the middle of the room is a table with a ring on it. Next to the ring is a note: "To whoever finds this ring: this grants you passage to the Hinge and the Other Side. Use it wisely..." Inscribed on the ring is the following phrase: "IMPERIUM RETINE". You have no idea what that means.	l
 1,0,2,0	0	3	-3,0	A room glowing hot pink.	You enter a room containing only a glowing pink door to the west.	l
 0,0,0,1	0	0	-2,0	A small offshoot to the cave.	You enter a random cave segment. Nothing is here...	d
 1,0,1,1	0	0	-1,0	A passageway to your place of falling.	You enter a large tunnel that seems to welcome you into... wherever you are. In the center of the tunnel lies a sign that reads: "Welcome to Aeonus."	l
 0,0,1,0	0	0	0,0	Your place of falling.	You exit into bright light to the place where you descended into the earth.	l
-1,1,0,1	0	0	2,0	Filler	Filler	d
-0,0,1,0	0	0	3,0	Filler	Lore	l
-1,1,0,0	0	0	2,-1	Filler	Filler	d
-0,0,0,1	0	0	0,-2	Filler	Filler	l
-0,0,1,1	0	3000	1,-2	Filler	Goblin	l
-1,0,1,0	1	0	2,-2	Filler	Portal	d
+1,1,0,1	0	0	2,0	A small room filled with drawings.	You enter a three-way intersection. On the cave walls are pictographic symbols, but you are unable to make out what they mean.	d
+0,0,1,0	0	0	3,0	An abandoned shop.	You stumble into a long-abandoned pub and trading post. At the top of the structure lies a sign reading "Kantor's". What could have happened? On a table inside lies a folded piece of paper, covered by a stone.	l
+1,1,0,0	0	0	2,-1	A long tunnel.	Continuing onwards through the tunnel, you begin to feel tired: fatigue from falling, you suppose... or is it this room?	d
+0,0,0,1	1	0	0,-2	A room glowing softly.	You reach a room with only a singular ladder inside. The ladder looks like it is glowing through bioluminescence... but how could that be possible in such a barren environment?	l
+0,0,1,1	0	3000	1,-2	An ominous-looking room.	An ominous-looking room, empty aside from the corpse of a goblin that you defeated. 	d
+1,0,1,0	0	0	2,-2	An endpoint of a tunnel.	You arrive at an endpoint of a long tunnel. A sign above reads "To the Base".	l
