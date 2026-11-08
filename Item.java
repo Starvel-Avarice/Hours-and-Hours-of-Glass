@@ -17,6 +17,7 @@ public class Item {
     }
 
     public Item(int id){
+        genItemHash();
        if(itemHash.containsKey(id)){
         Item i = itemHash.get(id);
         lore = i.getLore();

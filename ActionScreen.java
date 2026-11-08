@@ -223,7 +223,7 @@ public class ActionScreen {
         if (Game.currentFloor.searchForTile(Game.playerX, Game.playerY).getLadder() == 1) {
             upDown.setVisible(true);
             upDown.setText("Up");
-            upDown.setActionCommand("up");
+            upDown.setActionCommand("upXX");
             upDown.setEnabled(true);
         } else if (Game.currentFloor.searchForTile(Game.playerX, Game.playerY).getLadder() == 2) {
             upDown.setVisible(true);

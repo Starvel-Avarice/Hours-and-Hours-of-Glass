@@ -11,12 +11,15 @@ public class Wall {
     }
 
     public static void genWallHash(){
+        wallHash.put(3, new Wall("A breakable wall",true));
         wallHash.put(2, new Wall("A locked door",true));
         wallHash.put(1, new Wall("There is nothing there",false));
         wallHash.put(0, new Wall("It's a solid wall",true));
     }
 
     public Wall(int id){
+        genWallHash();
+        System.out.println("THIS WORKS");
         if(wallHash.containsKey(id)){
         Wall i = wallHash.get(id);
         inspect = i.getInspect();
