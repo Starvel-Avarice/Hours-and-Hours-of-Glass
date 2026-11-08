@@ -261,6 +261,74 @@ public class ActionScreen {
         grabber.add(dirCompassGrid,0);      
         
     }
+
+    public void breakWallsCompass(){
+        reset();
+        Boolean[] moveOptions = Game.currentFloor.searchForTile(Game.playerX, Game.playerY).solidWalls();
+        interPanel.setVisible(false);
+        lookPanel.setVisible(false);
+        movePanel.setVisible(false);
+        Game.currentScreen = "Break walls";
+        updateInfo("Select a wall to break.");
+        for(Boolean t:moveOptions){System.out.println(t+"as "+Game.playerX+"-"+Game.playerY);}
+
+        dirCompassGrid = new JPanel();
+        dirCompassGrid.setBounds(screenSize.width*11/32,screenSize.height*37/60,450,250);
+        dirCompassGrid.setBackground(Color.decode(beige));
+        dirCompassGrid.setLayout(new GridLayout(3,3));
+        dirCompassGrid.setVisible(true);
+        dirCompassGrid.add(new JLabel());
+
+        north = buttonBuilder("North", darkBeige, darkGrey, compassHandler, "");
+
+        System.out.println(moveOptions);
+        if(moveOptions[0]){
+            north.setBackground(Color.decode(sand));
+            north.setActionCommand("breakNorth");
+        } else {
+            north.setEnabled(false);
+        }
+        dirCompassGrid.add(north);
+        dirCompassGrid.add(new JLabel());
+
+        west = buttonBuilder("West", darkBeige, darkGrey, compassHandler, "");
+        if(moveOptions[2]){
+            west.setBackground(Color.decode(sand));
+            west.setActionCommand("breakWest");
+        } else {
+            west.setEnabled(false);
+        }
+        dirCompassGrid.add(west);
+
+        upDown=buttonBuilder("", sand, darkGrey, compassHandler, "");
+        upDown.setVisible(false);
+        dirCompassGrid.add(upDown);
+        
+        east = buttonBuilder("East", darkBeige, darkGrey, compassHandler, "");
+        if(moveOptions[3]){
+            east.setActionCommand("breakEast");
+            east.setBackground(Color.decode(sand));
+        } else { 
+            east.setEnabled(false);
+        }
+        dirCompassGrid.add(east);
+        dirCompassGrid.add(new JLabel());
+
+        south = buttonBuilder("South", darkBeige, darkGrey, compassHandler, "");
+        if(moveOptions[1]){
+            south.setActionCommand("breakSouth");
+            south.setBackground(Color.decode(sand));
+        } else {
+            south.setEnabled(false);
+        }
+        
+        dirCompassGrid.add(south);
+        dirCompassGrid.add(new JLabel());
+ 
+        backButton();
+        grabber.add(dirCompassGrid,0);      
+        
+    }
     
     public void lookCompass(){
         interPanel.setVisible(false);

@@ -7,7 +7,7 @@ public class Game {
     public static int playerX = 0;
     public static int playerY = -2;
     public static String currentScreen = "main";
-    public static boolean hasTorch = false;
+    public static boolean hasTorch = true;
     public static int glassShards = 0;
     public static String interruption = "";
     public static boolean goblinEncountered = false;
@@ -201,13 +201,13 @@ public class Game {
                 case "ahead":
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).look(playerX, playerY, 0, currentFloor));
-                     }
+                        actionScreen.updateInfo(targetTile.look(playerX, playerY, 0, currentFloor));
+                    }
                     break;
                 case "left":                   
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).look(playerX, playerY, 2, currentFloor));
+                        actionScreen.updateInfo(targetTile.look(playerX, playerY, 2, currentFloor));
                     }
                     break;
                 case "current":       
@@ -219,13 +219,13 @@ public class Game {
                 case "right":
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).look(playerX, playerY, 3, currentFloor));
+                        actionScreen.updateInfo(targetTile.look(playerX, playerY, 3, currentFloor));
                     }
                     break;
                 case "behind":
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
-                        actionScreen.updateInfo(currentFloor.searchForTile(playerX, playerY).look(playerX, playerY, 1, currentFloor));
+                        actionScreen.updateInfo(targetTile.look(playerX, playerY, 1, currentFloor));
                     }
                     break;
                 case "goInv":
@@ -236,6 +236,50 @@ public class Game {
                     break;
                 case "back":
                     actionScreen.reset();
+                    break;
+                case "breakNorth":
+                    if (targetTile.getWalls()[0].getInspect().equals("A breakable wall")) {
+                        targetTile.getWalls()[0].setSolid(false);
+                        currentFloor.searchForTile(playerX, playerY + 1).getWalls()[1].setSolid(false);
+                        actionScreen.reset();
+                        actionScreen.updateInfo("Wall broken!");
+                    } else {
+                        actionScreen.reset();
+                        actionScreen.updateInfo("This wall can't be broken.");
+                    }
+                    break;
+                case "breakSouth":
+                    if (targetTile.getWalls()[1].getInspect().equals("A breakable wall")) {
+                        targetTile.getWalls()[1].setSolid(false);
+                        currentFloor.searchForTile(playerX, playerY - 1).getWalls()[0].setSolid(false);
+                        actionScreen.reset();
+                        actionScreen.updateInfo("Wall broken!");
+                    } else {
+                        actionScreen.reset();
+                        actionScreen.updateInfo("This wall can't be broken.");
+                    }
+                    break;
+                case "breakWest":
+                    if (targetTile.getWalls()[2].getInspect().equals("A breakable wall")) {
+                        targetTile.getWalls()[2].setSolid(false);
+                        currentFloor.searchForTile(playerX - 1, playerY).getWalls()[3].setSolid(false);
+                        actionScreen.reset();
+                        actionScreen.updateInfo("Wall broken!");
+                    } else {
+                        actionScreen.reset();
+                        actionScreen.updateInfo("This wall can't be broken.");
+                    }
+                    break;
+                case "breakEast":
+                    if (targetTile.getWalls()[3].getInspect().equals("A breakable wall")) {
+                        targetTile.getWalls()[3].setSolid(false);
+                        currentFloor.searchForTile(playerX + 1, playerY).getWalls()[2].setSolid(false);
+                        actionScreen.reset();
+                        actionScreen.updateInfo("Wall broken!");
+                    } else {
+                        actionScreen.reset();
+                        actionScreen.updateInfo("This wall can't be broken.");
+                    }
                     break;
                 default: 
                     break;

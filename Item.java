@@ -36,6 +36,9 @@ public class Item {
         itemHash.put(2, new Item("Blue Key", "A key to a door.", "KeyUse", 2, true));
         itemHash.put(4, new Item("The Ring", "Grants passageway to the Hinge.", "RingUse", 4, true));
         itemHash.put(5, new Item("The Pink Puzzle", "The Pink Puzzle", "PinkPuzzleUse", 5, false));
+        itemHash.put(6, new Item("Green Key", "A key to a door.", "KeyUse", 6, true));
+        itemHash.put(7, new Item("Pickaxe", "Allows the player to break blocks.", "PickaxeUse", 7, true));
+        itemHash.put(9, new Item("Red Key", "A key to a door.", "KeyUse", 9, true));
         itemHash.put(666, new Item("Death", "Kills the player", "InstantDeath", 666, false));
         itemHash.put(1000, new Item("Glass Shards", "Stores glass shards (back-end)", "ShardHolderUse", 1000, true));
         itemHash.put(3000, new Item("Goblin", "Combat with the goblin.", "Goblin", 3000, false));
@@ -58,6 +61,20 @@ public class Item {
                     Inventory.removeItem(2);
                     Game.actionScreen.reset();
                     Game.actionScreen.updateInfo("You unlock the door, which guards a hallway. What could it lead to?");
+                }
+                break;
+            case 7:
+                Game.actionScreen.breakWallsCompass();
+                break;
+            case 9: 
+                if (Game.currentFloor.getName().equals("floor2.txt") && Game.playerX == 1 && Game.playerY == 1) {
+                    Tile theTile = Game.currentFloor.searchForTile(1, 1);
+                    theTile.getWalls()[1].setSolid(false);
+                    theTile = Game.currentFloor.searchForTile(1, 0);
+                    theTile.getWalls()[0].setSolid(false);
+                    Inventory.removeItem(9);
+                    Game.actionScreen.reset();
+                    Game.actionScreen.updateInfo("You unlock the door, which guards a small, nearly-empty room.");
                 }
                 break;
             default:
