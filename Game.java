@@ -5,7 +5,7 @@ public class Game {
     public static int time = 1000;
     public static int torchTime = 100;
     public static int playerX = 0;
-    public static int playerY = 0;
+    public static int playerY = -2;
     public static String currentScreen = "main";
     public static boolean hasTorch = false;
     public static int glassShards = 0;
@@ -16,6 +16,10 @@ public class Game {
     private static TitleScreen titleScreen;
     public static ActionScreen actionScreen;
     public static Floor currentFloor;
+
+    public static Floor demoFloor = new Floor("demo.txt");
+    public static Floor floor1 = new Floor("floor1_1.txt");
+    public static Floor floor2 = new Floor("floor2.txt");
     
     public static void main(String[] args) {
         
@@ -86,8 +90,6 @@ public class Game {
         titleScreen = new TitleScreen();
         Item.genItemHash();
         Wall.genWallHash();
-        Floor demoFloor = new Floor("demo.txt");
-        Floor floor1 = new Floor("floor1_1.txt");
         currentFloor = floor1; 
     }
 
@@ -112,10 +114,10 @@ public class Game {
         public void actionPerformed(ActionEvent event){
             String command = event.getActionCommand();
             Tile targetTile = currentFloor.searchForTile(playerX, playerY);
-            if(currentScreen.equals("Inventory") & command.substring(0,4).equals("Item")){
+            if(currentScreen.equals("Inventory") && command.substring(0,4).equals("Item")){
                 System.out.println(Inventory.getItems());
                 Inventory.getItems().get(Integer.parseInt(command.substring(4))).use(); }
-            if(currentScreen.equals("Interact") & command.substring(0,4).equals("Item")){
+            if(currentScreen.equals("Interact") && command.substring(0,4).equals("Item")){
                 Item targetItem = targetTile.getItems().get(Integer.parseInt(command.substring(4)));
                 String itemName = targetItem.getName();
                 System.out.println(itemName);
@@ -184,8 +186,18 @@ public class Game {
                         displayText(hasTorch);
                         checkForInterruption();
                 break;
-                case "up":
-                break;
+                case "upXX":
+                    System.out.println("WOO");
+                    currentFloor = floor2;
+                    actionScreen.reset();
+                    displayText(hasTorch);
+                    break;
+                case "down":
+                    System.out.println("WOO");
+                    currentFloor = floor1;
+                    actionScreen.reset();
+                    displayText(hasTorch);
+                    break;
                 case "ahead":
                     if(currentScreen.equals("look")){
                         actionScreen.reset();
