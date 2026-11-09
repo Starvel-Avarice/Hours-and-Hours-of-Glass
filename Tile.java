@@ -59,9 +59,10 @@ public class Tile {
             System.out.println(items.get(i).getName());
             if(items.get(i).getName().equals(itemName)){
                 Item taken = items.get(i);
+                if(taken.isObtainable()){
                 items.remove(i);
                 Inventory.addItem(taken);
-            }
+            }}
         }
     }
 

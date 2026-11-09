@@ -43,7 +43,9 @@ public class Item {
     public int getItemId(){
         return knownId;
     }
-
+    public boolean isObtainable(){
+        return obtainable;
+    }
     public void use(){
         switch (knownId) {
             case 1:
