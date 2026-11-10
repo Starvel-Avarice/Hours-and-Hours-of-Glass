@@ -72,7 +72,7 @@ public class ActionScreen {
         infoPanel.setVisible(false);
 
         infoText = new JTextArea();
-        infoText.setBounds(screenSize.width/2-900,screenSize.height/2-500,500,270);
+        infoText.setBounds(25,25,550,270);
         infoText.setForeground(Color.decode(darkGrey));
         infoText.setFont(mainBoxFont);
         infoText.setEditable(false);

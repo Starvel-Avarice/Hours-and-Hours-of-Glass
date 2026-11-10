@@ -1,6 +1,4 @@
 # Hours-and-Hours-of-Glass
-Remember this is for a grade guys
-
 v1.0:
 - 2 labyrinth-like floors
 - Mono-directional movement system
