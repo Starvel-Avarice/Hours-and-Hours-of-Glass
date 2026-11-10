@@ -5,7 +5,7 @@ public class Game {
     public static int time = 1000;
     public static int torchTime = 100;
     public static int playerX = 0;
-    public static int playerY = -2;
+    public static int playerY = 0;
     public static String currentScreen = "main";
     public static int floor = 1;
     public static boolean hasTorch = false;
