@@ -91,7 +91,7 @@ public class Tile {
         } else if (dir==2) {
             lookX--;
         }
-        
+
         Tile targetTile = fl.searchForTile(lookX, lookY);
         
         if(!myWalls[dir].getSolid()) {
@@ -99,9 +99,9 @@ public class Tile {
                     return targetTile.getLookText();
             } else {
                 if(targetTile.isDark() && !this.isDark()){
-                        return "There's nothing in the way";
+                        return "There's something here! Go check it out!";
                     }else{
-                        return "Too dark to see (no wall)";
+                        return "Too dark to see... (no wall)";
                     }
             } 
         } else {
@@ -110,11 +110,13 @@ public class Tile {
                 System.out.println(myWalls[dir].getInspect());
                 if (myWalls[dir].getInspect().equals("A locked door")) {
                     return "A locked door.";
+                } else if (myWalls[dir].getInspect().equals("A breakable wall")) {
+                    return "This wall seems suspicious...";
                 } else {
-                    return "There's something in the way";
+                    return "There's something in the way.";
                 }
             } else {
-                return "Too dark to see (Something in the way)";
+                return "Too dark to see... (Something in the way)";
             }
         }
     }
@@ -123,5 +125,18 @@ public class Tile {
         return dark;
     }
     
+    public boolean hasItem(String itemName){
+        for(int i=0; i<items.size(); i++){
+            System.out.println(items.get(i).getName());
+            if (items.get(i).getName() == null) {
+                continue;
+            } else if(items.get(i).getName().equals(itemName)){
+                int taken = items.get(i).getItemId();
+                items.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

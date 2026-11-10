@@ -1,27 +1,28 @@
-0,1,0,0	0	0	0,2	A dimly lit room.	You enter a room containing silverware and other cutlery scattered everywhere. This place seems to be a kitchen of sorts... or at least, it used to be. Now, it is abandoned.	d
-0,0,0,3	0	0	-2,1	Filler	Lore	d
-0,1,3,1	0	0	-1,1	Filler	Chests	d
-1,1,1,1	0	0	0,1	Filler	Crossroads	d
-0,2,1,1	0	1000,10	1,1	Filler	Shards	d
-0,1,1,0	0	0	2,1	Filler	Smelting Room	l
-0,1,0,1	0	0	-2,0	Filler	Syria	l
-1,0,1,0	0	6	-1,0	Filler	Green Key	d
-1,0,0,0	0	0	0,0	Filler	Hole	l
-2,3,0,0	0	7	1,0	Filler	Pickaxe	d
-1,0,0,0	0	666	2,0	Filler	Danger	d
-0,0,0,1	0	0	-3,-1	Filler	Clue	d
-1,1,1,0	0	0	-2,-1	Filler	Crossroads	d
-0,1,0,1	0	0	-1,-1	Filler	Statue	d
-0,0,1,1	0	0	0,-1	Filler	Hallway	d
-3,0,1,0	0	2000	1,-1	Filler	Shop	l
-0,3,0,0	1	0	2,-1	Filler	Portal	l
-1,1,0,1	0	0	-2,-2	Filler	Mirror	d
-1,0,1,0	0	1000	-1,-2	Filler	Shards	d
-0,0,0,1	2	0	0,-2	Filler	Portal	l
-1,0,1,0	0	8	1,-2	Filler	Torch	l
-3,1,0,0	0	0	2,-2	Filler	Hallway	d
-1,0,0,1	0	9	-2,-3	Filler	Red Key	d
-0,0,1,1	0	0	-1,-3	Filler	Hallway	d
-0,1,1,1	0	0	0,-3	Filler	Garden	d
-0,0,1,3	0	1000	1,-3	Filler	Shards	d
-0,1,0,0	0	1000	0,-4	Filler	Shards	d
+0,1,0,0	0	4001	0,2	A room containing a... no, that can't be right...	You walk into a small room containing a woman that looks... faded.	d
+0,0,0,3	0	0	-2,1	A small nook in the cave.	You climb inside a small nook in the cave, containing a metal tube with an entrance.	d
+0,1,3,1	0	10	-1,1	An old storage room.	You enter a room filled with chests of all shapes and sizes, though most of them are visibly empty.	d
+1,1,1,1	0	0	0,1	A crossroads area.	You arrive in a crossroads area. Not much else is here, sadly.	d
+0,2,1,1	0	1000	1,1	A hallway.	You walk into a small hallway-like area in the cave. Shards of glass stick out from the walls. You also notice a door with a red keyhole.	d
+0,1,1,0	0	0	2,1	A very bright room.	You enter a bright room full of fire and furnaces: is this where they cooked things? Or if it's where they're currently cooking things, who would be cooking them in such a barren place? 	l
+0,1,0,1	0	0	-2,0	A dimly lit room.	You enter a room containing silverware and other cutlery scattered everywhere. This place seems to be a kitchen of sorts... or at least, it used to be. Now, it is abandoned.	d
+1,0,1,0	0	6	-1,0	A corner area.	You step into a room containing a singular table. On the table lies a green key.	d
+1,0,0,0	0	0	0,0	A viewpoint of the hole you fell into.	You stumble into the bright light on a narrow ledge. You've climbed up a bit since you've started, but there's still a long way to go.	l
+2,3,0,0	0	7	1,0	A very dusty area of the cave.	You find yourself in an area that looks like it is being carved out. Off to the side is the skeleton of a miner, who died still holding his trusty pickaxe. You could probably finish his job, though...	d
+1,0,0,0	0	666	2,0	Another bright area of the cave.	Danger	d
+0,0,0,1	0	0	-3,-1	A dark room.	You discover a small area of the cave that feels... important. On one of the cave walls is the number 6.	d
+1,1,1,0	0	0	-2,-1	A crossroads area.	You step out into a crossroads area.	d
+0,1,0,1	0	0	-1,-1	A dark room with a faint outline of... a person?	At first, you think you found another person. You rush into this area of the cave, only to find a stone statue. Engraved at the bottom of the statue is the name Korr.	d
+0,0,1,1	0	0	0,-1	A long hallway.	You enter a small hallway.	d
+3,1,1,0	0	2000	1,-1	A bright room.	For some reason, this room is bright! At the back of the room is a slot that seems like it could fit your glass shards. Above the slot is the text "4 GLASS = FREEZER".	l
+0,3,0,0	1	0	2,-1	A room containing a wooden staircase.	You arrive in a room containing a wooden staircase leading to a small hole in the cave's roof.	l
+1,1,0,1	0	0	-2,-2	A dark room containing something that seems to shimmer slightly.	You enter a room containing a singular mirror on the wall.	d
+1,0,1,0	0	1000	-1,-2	A small corner section of the cave.	You find yourself in a dark corner area with glass shards on one of the walls.	d
+0,0,0,1	2	0	0,-2	A passageway down to the bottom of the cave.	You enter a bright room leading to more of the cave. A lantern hanging from the ceiling lights your way.	l
+1,0,1,0	0	8	1,-2	A very bright room!	You find a room containing many, many unlit torches. At the center of the room is a firepit.	l
+3,1,0,0	0	0	2,-2	A small hallway.	You enter a small hallway.	d
+1,0,0,1	0	9	-2,-3	A very dark corner area.	You step into yet another cave segment. A red key lies on the floor.	d
+0,0,1,1	0	0	-1,-3	A long hallway.	You walk into another hallway.	d
+0,1,1,1	0	0	0,-3	A room that smells... strangely earthy?	You discover a small garden hidden beneath the surface: a miracle!	d
+0,0,1,3	0	1000	1,-3	Another hallway.	This place is a maze! You walk into another small room, and one of the walls seems to be lacking structural integrity..	d
+1,0,3,0	0	10	2,-3	A spacious room.	You walk into another room containing many chests.	d
+1,0,0,0	0	1000	0,-4	A small nook in the cave.	You step inside a small nook with glass shards embedded in a wall.	d

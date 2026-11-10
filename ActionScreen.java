@@ -7,7 +7,7 @@ import javax.swing.event.DocumentListener;
 
 public class ActionScreen {
     private JPanel infoPanel;
-    private JTextArea infoText;
+    public JTextArea infoText;
     private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private Container grabber;
     private Timer timer;
@@ -55,8 +55,8 @@ public class ActionScreen {
     private String sand = "#efb787";
     private String orangeSand = "#e8975d";
     
-    private Font normalFont = new Font("Papyrus",Font.PLAIN,30);
-    private Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
+    public Font normalFont = new Font("Papyrus",Font.PLAIN,30);
+    public Font mainBoxFont = new Font("Papyrus",Font.PLAIN,25);
 
     public ActionScreen(Container con){
         grabber=con;
@@ -185,6 +185,7 @@ public class ActionScreen {
 
 
     public void dirCompass(){
+        infoText.setFont(mainBoxFont);
         Boolean[] moveOptions = Game.currentFloor.searchForTile(Game.playerX, Game.playerY).solidWalls();
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
@@ -263,6 +264,7 @@ public class ActionScreen {
     }
 
     public void breakWallsCompass(){
+        infoText.setFont(mainBoxFont);
         reset();
         Boolean[] moveOptions = Game.currentFloor.searchForTile(Game.playerX, Game.playerY).solidWalls();
         interPanel.setVisible(false);
@@ -331,6 +333,7 @@ public class ActionScreen {
     }
     
     public void lookCompass(){
+        infoText.setFont(mainBoxFont);
         interPanel.setVisible(false);
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
@@ -367,6 +370,7 @@ public class ActionScreen {
     }
 
     public void inventory(){
+        infoText.setFont(mainBoxFont);
         Game.currentScreen="Inventory";
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
@@ -393,6 +397,7 @@ public class ActionScreen {
     }
 
     public void interact(){
+        infoText.setFont(mainBoxFont);
         Game.currentScreen="Interact";
         lookPanel.setVisible(false);
         movePanel.setVisible(false);
@@ -407,8 +412,7 @@ public class ActionScreen {
 
         backButton();
         Tile targetTile = Game.currentFloor.searchForTile(Game.playerX, Game.playerY);
-        if (targetTile.getItems().size() != 0) {
-            System.out.println("DETECTED!");
+        if (targetTile.getItems().size() != 0 && (Game.hasTorch == true || !targetTile.isDark()) ) {
             int i = 0;
             for (Item itm:targetTile.getItems()) {
                 JButton b = buttonBuilder(itm.getName(), sand, darkGrey, itemHandler, "Item"+i);
@@ -454,6 +458,8 @@ public class ActionScreen {
         textboxPanel.setVisible(false);
 
         Game.displayText(Game.hasTorch);
+
+        infoText.setFont(mainBoxFont);
     }
 
     public void togglePanels(boolean toggle) {
