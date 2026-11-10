@@ -38,10 +38,14 @@ public class Item {
         itemHash.put(5, new Item("The Pink Puzzle", "The Pink Puzzle", "PinkPuzzleUse", 5, false));
         itemHash.put(6, new Item("Green Key", "A key to a door.", "KeyUse", 6, true));
         itemHash.put(7, new Item("Pickaxe", "Allows the player to break blocks.", "PickaxeUse", 7, true));
+        itemHash.put(8, new Item("Burning Torch", "Lights up the way", "TorchUse", 1, false));
         itemHash.put(9, new Item("Red Key", "A key to a door.", "KeyUse", 9, true));
+        itemHash.put(10, new Item("Chest", "Stores 5 glass shards.", "ChestUse", 10, true));
         itemHash.put(666, new Item("Death", "Kills the player", "InstantDeath", 666, false));
         itemHash.put(1000, new Item("Glass Shards", "Stores glass shards (back-end)", "ShardHolderUse", 1000, true));
+        itemHash.put(2000, new Item("Shop", "Allows the user to purchase something.", "ShopUse", 2000, false));
         itemHash.put(3000, new Item("Goblin", "Combat with the goblin.", "Goblin", 3000, false));
+        itemHash.put(4001, new Item("Syria", "Ancient Syria", "SyriaTalk", 4001, false));
     }
 
     public int getItemId(){
@@ -58,9 +62,22 @@ public class Item {
                 if (Game.currentFloor.getName().equals("floor1_1.txt") && Game.playerX == 1 && Game.playerY == 2) {
                     Tile theTile = Game.currentFloor.searchForTile(1, 2);
                     theTile.getWalls()[3].setSolid(false);
+                    Game.currentFloor.searchForTile(2, 2);
+                    theTile.getWalls()[2].setSolid(false);
                     Inventory.removeItem(2);
                     Game.actionScreen.reset();
                     Game.actionScreen.updateInfo("You unlock the door, which guards a hallway. What could it lead to?");
+                }
+                break;
+            case 6: 
+                if (Game.currentFloor.getName().equals("floor1_1.txt") && Game.playerX == 2 && Game.playerY == 2) {
+                    Tile theTile = Game.currentFloor.searchForTile(2, 2);
+                    theTile.getWalls()[3].setSolid(false);
+                    theTile = Game.currentFloor.searchForTile(3, 2);
+                    theTile.getWalls()[2].setSolid(false);
+                    Inventory.removeItem(6);
+                    Game.actionScreen.reset();
+                    Game.actionScreen.updateInfo("You unlock the door, which guards an ominous-looking room.");
                 }
                 break;
             case 7:

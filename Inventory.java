@@ -26,7 +26,7 @@ public class Inventory {
                 return inv.get(j);
             }
         }
-        return new Item(0);
+        return null;
     }
 
 }
